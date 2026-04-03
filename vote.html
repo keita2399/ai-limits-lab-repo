@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI ãã¶ã¤ã³å¯¾æ±º â ãé¡01: é«ç´ã³ã¹ã¡ãã©ã³ãLP</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0f0f13;
+    --card: #1a1a22;
+    --border: #2a2a35;
+    --accent: #c8956c;
+    --accent2: #9b6fe0;
+    --text: #e8e8f0;
+    --muted: #888;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: linear-gradient(180deg, #1a0a30 0%, var(--bg) 100%);
+  }
+
+  .header h1 {
+    font-size: clamp(24px, 4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #e8c9a0, #c8956c, #9b6fe0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  .header p {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .prompt-box {
+    display: inline-block;
+    background: rgba(200, 149, 108, 0.1);
+    border: 1px solid rgba(200, 149, 108, 0.3);
+    border-radius: 12px;
+    padding: 12px 24px;
+    margin-top: 24px;
+    font-size: 14px;
+    color: var(--accent);
+  }
+
+  .rules {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    padding: 0 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-top: 32px;
+  }
+
+  .rules h3 { font-size: 14px; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .rules ul { list-style: none; }
+  .rules li { font-size: 14px; color: var(--text); padding: 4px 0; padding-left: 20px; position: relative; }
+  .rules li::before { content: 'âº'; position: absolute; left: 0; color: var(--accent); }
+
+  .designs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .design-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .design-card.selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 30px rgba(200, 149, 108, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .card-label {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .design-letter {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .card-status {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    color: var(--muted);
+  }
+
+  .card-status.voted {
+    background: rgba(200, 149, 108, 0.2);
+    color: var(--accent);
+  }
+
+  .preview-container {
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+    background: #111;
+  }
+
+  .preview-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .preview-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  }
+
+  .preview-tool-badge {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: white;
+    opacity: 0.15;
+  }
+
+  .preview-open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background 0.2s;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+  }
+
+  .preview-open-btn:hover { background: rgba(255,255,255,0.2); }
+
+  .card-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+  }
+
+  .vote-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .vote-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(200, 149, 108, 0.1);
+  }
+
+  .vote-btn.selected {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: white;
+  }
+
+  .preview-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40px;
+    background: linear-gradient(180deg, rgba(26,26,34,0.9) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .preview-overlay-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(0deg, rgba(26,26,34,0.95) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
+
+  .scroll-hint {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    padding: 4px 10px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
+  }
+
+  .submit-section {
+    text-align: center;
+    padding: 50px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .submit-btn {
+    padding: 16px 48px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: opacity 0.2s, transform 0.2s;
+    letter-spacing: -0.01em;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .submit-btn:not(:disabled):hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  .vote-count {
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  /* Reveal overlay */
+  #revealOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 20, 0.97);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 40px 20px;
+  }
+
+  #revealContent {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes winnerPop {
+    0% { opacity: 0; transform: scale(0.7); }
+    60% { transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  canvas#confettiCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 999;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confettiCanvas"></canvas>
+
+<div class="header">
+  <h1>ð AI ãã¶ã¤ã³5ç¤¾å¯¾æ±º</h1>
+  <p>ãã®ãã¶ã¤ã³ã§åããé¡ã§ãã¶ã¤ã³ãã¾ãããã©ã®ãã¶ã¤ã³ãæãè¯ãã¨æãã¾ããï¼</p>
+  <div class="prompt-box">
+    ãé¡ï¼é«ç´ã³ã¹ã¡ãã©ã³ãã®ã©ã³ãã£ã³ã°ãã¼ã¸ï¼ãã¼ã­ã¼ã»ã¯ã·ã§ã³ã»ååç´¹ä»ã»ãã©ã³ãå²å­¦ãã¯ãªã¼ã ã»ãã£ã³ã¼ã«ã»ã­ã¼ãºã´ã¼ã«ãï¼
+  </div>
+</div>
+
+<div style="max-width:700px;margin:32px auto;padding:0 20px;">
+  <div class="rules">
+    <h3>æç¥¨ã®ã«ã¼ã«</h3>
+    <ul>
+      <li>Design AãE ã¯ããããç°ãªãAIãã¼ã«ãçæãããã®ã§ã</li>
+      <li>ã©ããã©ã®AIãã¯æç¥¨å®äºå¾ã«å¬éãã¾ã</li>
+      <li>ç´æã§ããããä¸çªè¯ããã¨æããã¶ã¤ã³ã«æç¥¨ãã¦ãã ãã</li>
+      <li>åãã¶ã¤ã³ã¯æ°ããã¿ãã§å¨ç»é¢ãã¬ãã¥ã¼ã§ãã¾ã</li>
+    </ul>
+  </div>
+</div>
+
+<div class="designs-grid" id="designsGrid">
+
+  <!-- Design A: Claude (LUMIÃRE) -->
+  <div class="design-card" id="card-A">
+    <div class="card-label">
+      <div class="design-letter">A</div>
+      <span class="card-status" id="status-A">æªæç¥¨</span>
+    </div>
+    <div class="preview-container">
+      <div class="preview-overlay"></div>
+      <iframe id="iframe-A" src="" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+      <div class="preview-overlay-bottom"><span class="scroll-hint">â ã¹ã¯ã­ã¼ã«ã§ç¢ºèª</span></div>
+    </div>
+    <div class="card-footer">
+      <button class="vote-btn" data-design="A" onclick="vote('A')">â­ ãã®ãã¶ã¤ã³ã«æç¥¨</button>
+    </div>
+  </div>
+
+  <!-- Design B: Lovable (MAISON BEAUTÃ) -->
+  <div class="design-card" id="card-B">
+    <div class="card-label">
+      <div class="design-letter">B</div>
+      <span class="card-status" id="status-B">æªæç¥¨</span>
+    </div>
+    <div class="preview-container">
+      <div class="preview-overlay"></div>
+      <iframe src="https://cream-charcoal-dream.lovable.app" loading="lazy"></iframe>
+      <div class="preview-overlay-bottom"><span class="scroll-hint">â ã¹ã¯ã­ã¼ã«ã§ç¢ºèª</span></div>
+    </div>
+    <div class="card-footer">
+      <button class="vote-btn" data-design="B" onclick="vote('B')">â­ ãã®ãã¶ã¤ã³ã«æç¥¨</button>
+    </div>
+  </div>
+
+  <!-- Design C: v0 (Elegant serif) -->
+  <div class="design-card" id="card-C">
+    <div class="card-label">
+      <div class="design-letter">C</div>
+      <span class="card-status" id="status-C">æªæç¥¨</span>
+    </div>
+    <div class="preview-container">
+      <div class="preview-overlay"></div>
+      <div class="preview-fallback" style="background: linear-gradient(135deg, #1a1408 0%, #2d2410 50%, #3d3018 100%);">
+        <div style="text-align:center;">
+          <div style="font-size:13px;color:rgba(200,160,80,0.5);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">ATELIER</div>
+          <div style="font-size:48px;font-weight:300;color:rgba(200,160,80,0.3);font-family:Georgia,serif;margin-bottom:6px;">Timeless</div>
+          <div style="font-size:48px;font-weight:300;color:rgba(200,160,80,0.3);font-family:Georgia,serif;margin-bottom:20px;">Elegance</div>
+          <div style="width:60px;height:1px;background:rgba(200,160,80,0.2);margin:0 auto 16px;"></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.1em;">Cormorant Garamond Â· ã¯ãªã¼ã  / ãã£ã³ã¼ã«</div>
+        </div>
+        <a href="https://v0.app/chat/elegant-serif-design-fLnQj2OActj" target="_blank" class="preview-open-btn">
+          ð ãã«ãã¬ãã¥ã¼ãéã
+        </a>
+      </div>
+      <div class="preview-overlay-bottom"></div>
+    </div>
+    <div class="card-footer">
+      <button class="vote-btn" data-design="C" onclick="vote('C')">â­ ãã®ãã¶ã¤ã³ã«æç¥¨</button>
+    </div>
+  </div>
+
+  <!-- Design D: Google Stitch (ELIXIR) -->
+  <div class="design-card" id="card-D">
+    <div class="card-label">
+      <div class="design-letter">D</div>
+      <span class="card-status" id="status-D">æªæç¥¨</span>
+    </div>
+    <div class="preview-container">
+      <div class="preview-overlay"></div>
+      <div class="preview-fallback" style="background: linear-gradient(135deg, #0a0f0a 0%, #0f1a0f 50%, #122212 100%);">
+        <div style="text-align:center;">
+          <div style="font-size:11px;color:rgba(100,180,100,0.4);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">BOTANIQUE PURE</div>
+          <div style="font-size:56px;font-weight:800;color:rgba(100,180,100,0.2);letter-spacing:0.05em;margin-bottom:8px;">ELIXIR</div>
+          <div style="width:40px;height:1px;background:rgba(100,180,100,0.15);margin:0 auto 12px;"></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.15);letter-spacing:0.08em;">COSMETIQUES</div>
+          <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,0.15);">ã¯ãªã¼ã  / ãã£ã³ã¼ã«ã / ã­ã¼ãºã´ã¼ã«ã</div>
+        </div>
+        <a href="https://stitch.withgoogle.com/projects/14169148014083121834" target="_blank" class="preview-open-btn">
+          ð ãã«ãã¬ãã¥ã¼ãéã
+        </a>
+      </div>
+      <div class="preview-overlay-bottom"></div>
+    </div>
+    <div class="card-footer">
+      <button class="vote-btn" data-design="D" onclick="vote('D')">â­ ãã®ãã¶ã¤ã³ã«æç¥¨</button>
+    </div>
+  </div>
+
+  <!-- Design E: Framer AI (Luminesse / Ãclat) -->
+  <div class="design-card" id="card-E">
+    <div class="card-label">
+      <div class="design-letter">E</div>
+      <span class="card-status" id="status-E">æªæç¥¨</span>
+    </div>
+    <div class="preview-container">
+      <div class="preview-overlay"></div>
+      <div class="preview-fallback" style="background: linear-gradient(135deg, #f8f8f8 0%, #efefef 100%);">
+        <div style="text-align:center;">
+          <div style="font-size:11px;color:rgba(0,0,0,0.25);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">ÃclatÂ®</div>
+          <div style="font-size:52px;font-weight:700;color:rgba(0,0,0,0.12);letter-spacing:-0.02em;margin-bottom:6px;">Luminesse</div>
+          <div style="width:200px;height:120px;background:rgba(0,0,0,0.06);border-radius:8px;margin:12px auto;display:flex;align-items:center;justify-content:center;">
+            <div style="font-size:28px;color:rgba(0,0,0,0.08);">â¼ââ¶</div>
+          </div>
+          <div style="font-size:11px;color:rgba(0,0,0,0.2);letter-spacing:0.05em;">Experience indulgence and radiance.</div>
+          <div style="font-size:10px;color:rgba(0,0,0,0.12);margin-top:4px;">â ã¯ã¤ã¤ã¼ãã¬ã¼ã ãã¶ã¤ã³ â</div>
+        </div>
+        <a href="https://framer.com/projects/Tactical-Staple--2FhYs6pHjopFWsMcZLln-eL4KI?node=augiA20Il&view=preview" target="_blank" class="preview-open-btn" style="background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.15);color:rgba(0,0,0,0.5);">
+          ð ãã«ãã¬ãã¥ã¼ãéã
+        </a>
+      </div>
+      <div class="preview-overlay-bottom"></div>
+    </div>
+    <div class="card-footer">
+      <button class="vote-btn" data-design="E" onclick="vote('E')">â­ ãã®ãã¶ã¤ã³ã«æç¥¨</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="submit-section">
+  <button class="submit-btn" id="submitBtn" disabled onclick="submitVote()">
+    æç¥¨ããï¼1ã¤é¸ãã§ãã ããï¼
+  </button>
+  <div class="vote-count" id="voteCount">ã¾ã æç¥¨ãã¦ãã¾ãã</div>
+</div>
+
+<!-- Reveal Overlay -->
+<div id="revealOverlay">
+  <div id="revealContent"></div>
+</div>
+
+<script>
+  // Design A: Claude â embed as data URI
+  document.getElementById('iframe-A').src = '/desigclaude.html';
+
+  let currentVote = null;
+
+  const tools = {
+    A: { name: 'Claude (Anthropic)', brand: 'LUMIÃRE', desc: 'ã¯ãªã¼ã Ããã£ã³ã¼ã«Ãã­ã¼ãºã´ã¼ã«ããCSSã§ä½ãããããã«ãã¸ã¥ã¢ã«ãCormorant Garamond + Interãã©ã³ã', color: '#c8956c' },
+    B: { name: 'Lovable', brand: 'MAISON BEAUTÃ', desc: 'ãLa BeautÃ© Ãternelleãå®éã®ã³ã¹ã¡è£½ååçãAIçæãã¼ã­ã¼ç»åãå¤§çç³ã®èæ¯', color: '#e879a0' },
+    C: { name: 'v0 (Vercel)', brand: 'ATELIER', desc: 'Cormorant Garamond Ã Montserratãã¨ã¬ã¬ã³ããªã»ãªãã¿ã¤ãã°ã©ãã£ããã§ã¼ãã¢ãã¡ã¼ã·ã§ã³', color: '#c8a055' },
+    D: { name: 'Google Stitch', brand: 'ELIXIR', desc: 'é«åè³ªè£½ååçãã¯ãªã¼ã Ããã£ã³ã¼ã«Ãã­ã¼ãºã´ã¼ã«ãããã¿ãã«ã«ãã©ã³ãã³ã³ã»ãã', color: '#64b440' },
+    E: { name: 'Framer AI', brand: 'Luminesse / ÃclatÂ®', desc: 'æ§é çã¯ã¤ã¤ã¼ãã¬ã¼ã ããã¬ã¼ã¹ãã«ãã¼ç»åãã·ã³ãã«ãªé»Ãç½ã®ã¿ã¤ãã°ã©ãã£', color: '#888' },
+  };
+
+  function vote(design) {
+    currentVote = design;
+    // Reset all cards
+    document.querySelectorAll('.design-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.vote-btn').forEach(b => { b.classList.remove('selected'); b.textContent = 'â­ ãã®ãã¶ã¤ã³ã«æç¥¨'; });
+    document.querySelectorAll('.card-status').forEach(s => { s.className = 'card-status'; s.textContent = 'æªæç¥¨'; });
+    // Select this card
+    document.getElementById('card-' + design).classList.add('selected');
+    document.querySelector(`.vote-btn[data-design="${design}"]`).classList.add('selected');
+    document.querySelector(`.vote-btn[data-design="${design}"]`).textContent = 'â æç¥¨æ¸ã¿';
+    document.getElementById('status-' + design).className = 'card-status voted';
+    document.getElementById('status-' + design).textContent = 'â é¸æä¸­';
+    // Enable submit
+    document.getElementById('submitBtn').disabled = false;
+    document.getElementById('submitBtn').textContent = `Design ${design} ã«æç¥¨ãã`;
+    document.getElementById('voteCount').textContent = `Design ${design} ãé¸æãã¾ãã`;
+  }
+
+  async function submitVote() {
+    if (!currentVote) return;
+    document.getElementById('submitBtn').disabled = true;
+    await dramaticReveal();
+  }
+
+  async function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  async function dramaticReveal() {
+    const overlay = document.getElementById('revealOverlay');
+    const content = document.getElementById('revealContent');
+    overlay.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const chosen = tools[currentVote];
+
+    // Phase 1: éè¨ä¸­
+    content.innerHTML = `<div style="text-align:center;padding:120px 0;"><div style="font-size:24px;color:rgba(255,255,255,0.4);">éè¨ä¸­...</div><div style="font-size:48px;margin-top:20px">â³</div></div>`;
+    await sleep(1800);
+
+    // Phase 2: çºè¡¨
+    content.innerHTML = `<div style="text-align:center;padding:100px 0;animation:fadeSlideUp 0.5s ease-out;"><div style="font-size:36px;font-weight:700;color:#fff;">æ­£è§£ãçºè¡¨ãã¾ã</div></div>`;
+    await sleep(1500);
+
+    // Phase 3: ããªãã®é¸æ
+    content.innerHTML = `
+      <div style="animation:fadeSlideUp 0.6s ease-out;max-width:600px;margin:0 auto;padding:60px 0;">
+        <div style="text-align:center;margin-bottom:40px;">
+          <div style="font-size:16px;color:rgba(255,255,255,0.4);margin-bottom:12px;">ããªããé¸ãã ã®ã¯...</div>
+          <div style="font-size:72px;font-weight:800;background:linear-gradient(135deg,#e8c9a0,#c8956c,#9b6fe0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Design ${currentVote}</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px;text-align:center;">
+          <div style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">ãã®ãã¶ã¤ã³ãä½ã£ãã®ã¯...</div>
+          <div style="font-size:32px;font-weight:700;color:${chosen.color};margin-bottom:8px;">${chosen.name}</div>
+          <div style="font-size:20px;color:rgba(255,255,255,0.6);margin-bottom:16px;">ã${chosen.brand}ã</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.4);line-height:1.6;">${chosen.desc}</div>
+        </div>
+      </div>`;
+    await sleep(1000);
+    launchConfetti();
+
+    // Phase 4: å¨ãã¶ã¤ã³ä¸è¦§
+    await sleep(1500);
+    let allDesigns = '';
+    for (const [key, tool] of Object.entries(tools)) {
+      const isChosen = key === currentVote;
+      allDesigns += `
+        <div style="display:flex;align-items:center;gap:16px;padding:14px 20px;background:rgba(255,255,255,0.04);border-radius:12px;margin:8px 0;border-left:3px solid ${isChosen ? tool.color : 'transparent'};${isChosen ? 'background:rgba(255,255,255,0.08)' : ''}">
+          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,${tool.color},${tool.color}88);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:white;flex-shrink:0;">${key}</div>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:600;color:${isChosen ? tool.color : 'rgba(255,255,255,0.8)'}">${tool.name} ${isChosen ? 'â ããªãã®é¸æ' : ''}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:2px;">ã${tool.brand}ã</div>
+          </div>
+        </div>`;
+    }
+
+    content.innerHTML += `
+      <div style="animation:fadeSlideUp 0.6s ease-out 0.3s both;max-width:600px;margin:0 auto;padding:0 0 40px;">
+        <div style="font-size:16px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:20px;text-transform:uppercase;letter-spacing:0.1em;font-size:12px;">å¨ãã¶ã¤ã³ã®æ­£ä½</div>
+        ${allDesigns}
+        <div style="text-align:center;margin-top:40px;">
+          <button onclick="document.getElementById('revealOverlay').style.display='none'" 
+            style="padding:14px 40px;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:12px;font-size:15px;cursor:pointer;font-family:inherit;">
+            éãã
+          </button>
+        </div>
+      </div>`;
+
+    setTimeout(launchConfetti, 500);
+  }
+
+  // Confetti
+  const confettiCanvas = document.getElementById('confettiCanvas');
+  const ctx = confettiCanvas.getContext('2d');
+  let particles = [];
+  let running = false;
+
+  function resizeCanvas() { confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function launchConfetti() {
+    const colors = ['#c8956c','#9b6fe0','#FFD700','#FF6B9D','#4ECDC4','#45B7D1'];
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * confettiCanvas.width, y: -20 - Math.random() * 100,
+        vx: (Math.random() - 0.5) * 8, vy: Math.random() * 3 + 2,
+        w: Math.random() * 10 + 4, h: Math.random() * 6 + 3,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 10, opacity: 1
+      });
+    }
+    if (!running) { running = true; animate(); }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    particles.forEach(p => {
+      p.x += p.vx; p.vy += 0.05; p.y += p.vy; p.rotation += p.rotSpeed; p.opacity -= 0.004;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rotation * Math.PI / 180);
+      ctx.globalAlpha = Math.max(0, p.opacity); ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h); ctx.restore();
+    });
+    particles = particles.filter(p => p.opacity > 0 && p.y < confettiCanvas.height + 50);
+    if (particles.length > 0) requestAnimationFrame(animate);
+    else { running = false; ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); }
+  }
+</script>
+</body>
+</html>
