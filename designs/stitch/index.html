@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ELIXIR | High-Performance Luxury Skincare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;700&amp;family=Manrope:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#fbfbe2",
+                        "on-primary-container": "#fffbff",
+                        "primary": "#8a4853",
+                        "on-tertiary-fixed-variant": "#16512f",
+                        "tertiary": "#2e6743",
+                        "inverse-primary": "#ffb2bc",
+                        "surface-container-high": "#eaead1",
+                        "surface-container": "#efefd7",
+                        "secondary-fixed-dim": "#b9c9d5",
+                        "inverse-surface": "#303221",
+                        "on-tertiary-fixed": "#00210e",
+                        "background": "#fbfbe2",
+                        "secondary-container": "#d2e2ee",
+                        "on-surface-variant": "#524345",
+                        "outline-variant": "#d7c1c3",
+                        "inverse-on-surface": "#f2f2d9",
+                        "primary-container": "#a6606b",
+                        "on-background": "#1b1d0e",
+                        "primary-fixed": "#ffd9dd",
+                        "on-primary-fixed": "#3a0915",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f6fff4",
+                        "outline": "#857374",
+                        "secondary": "#51606b",
+                        "on-secondary-fixed-variant": "#3a4953",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#b4f1c3",
+                        "on-primary-fixed-variant": "#70343e",
+                        "on-surface": "#1b1d0e",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#d5e5f1",
+                        "on-secondary-container": "#55656f",
+                        "surface-container-highest": "#e4e4cc",
+                        "surface-dim": "#dbdcc3",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#0e1d26",
+                        "tertiary-fixed-dim": "#98d4a8",
+                        "surface-variant": "#e4e4cc",
+                        "surface-tint": "#8c4b55",
+                        "tertiary-container": "#48805a",
+                        "surface": "#fbfbe2",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#ffb2bc",
+                        "surface-container-low": "#f5f5dc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fbfbe2; }
+        .font-noto { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .rose-gold-gradient { background: linear-gradient(135deg, #8a4853 0%, #a6606b 100%); }
+        .text-rose-gold { color: #B76E79; }
+        .bg-charcoal { background-color: #36454F; }
+        .bg-cream { background-color: #F5F5DC; }
+    </style>
+</head>
+<body class="text-on-surface antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#F5F5DC]/80 backdrop-blur-xl transition-all duration-500">
+<div class="flex justify-between items-center w-full px-12 py-8 max-w-[1920px] mx-auto">
+<div class="flex-1 hidden md:flex gap-12 font-['Noto_Serif'] tracking-tight text-[#36454F] opacity-70">
+<a class="hover:opacity-100 hover:text-[#B76E79] transition-all duration-500 text-[#8a4853] border-b border-[#B76E79]/30 pb-1" href="#">Collections</a>
+<a class="hover:opacity-100 hover:text-[#B76E79] transition-all duration-500" href="#">Philosophy</a>
+<a class="hover:opacity-100 hover:text-[#B76E79] transition-all duration-500" href="#">The Atelier</a>
+<a class="hover:opacity-100 hover:text-[#B76E79] transition-all duration-500" href="#">Boutiques</a>
+</div>
+<div class="flex-shrink-0">
+<h1 class="text-3xl font-light tracking-[0.2em] text-[#36454F]">ELIXIR</h1>
+</div>
+<div class="flex-1 flex justify-end items-center gap-6">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline scale-75">search</span>
+<input class="bg-transparent border-b border-outline/30 focus:border-primary transition-colors pl-10 py-1 text-sm outline-none w-48 font-body" placeholder="Search" type="text"/>
+</div>
+<button class="text-[#B76E79] active:opacity-50 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_bag</span>
+</button>
+</div>
+</div>
+</nav>
+<main>
+<!-- Section 1: Hero -->
+<section class="relative h-screen flex items-center overflow-hidden bg-surface">
+<div class="absolute inset-0 z-0">
+<img alt="Luxury Serum" class="w-full h-full object-cover" data-alt="Close-up of a premium glass cosmetic serum bottle with gold accents, soft focus architectural background, warm morning sunlight, high-end editorial aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWnwKCcXkn3aKRkYGOrSVaj5EokFaHN7R6QQbZr538BM5mcmtxqts1tgiga9a5r1mqKTDSFon4MgJicveI9VpHEgVbhpbZtSTgzppG02z7aHtyHo0J_3N95-rSAu6amwYEcvq67ZTZxVOYkb1pTeusQnzHPGSI4gl9I2FHa3nk4iSzqK6B-xAnaDN7ifAkUlRPSsHBLdNEEWWsZSyU91mOdRddh06OiFjaQfhS6zWljKLWFoWBY_3L7-1gRq_GrOByVJpNI3P8BudX"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface-container-low/60 to-transparent"></div>
+</div>
+<div class="relative z-10 w-full px-12 max-w-[1920px] mx-auto">
+<div class="max-w-2xl">
+<span class="label-md uppercase tracking-[0.4em] text-primary mb-6 block font-body">New Arrival | 新しい到着</span>
+<h2 class="text-7xl md:text-8xl font-noto font-light text-on-surface leading-[1.1] tracking-tight mb-8">
+                        ELIXIR OF <br/>
+<span class="italic font-normal">RADIANCE</span>
+</h2>
+<p class="text-xl font-body text-secondary max-w-lg mb-12 leading-relaxed">
+                        Discover the timeless beauty through our signature fusion of ancestral botanical wisdom and modern molecular science.
+                    </p>
+<div class="flex gap-8 items-center">
+<button class="rose-gold-gradient text-on-primary px-10 py-5 rounded-md font-body tracking-widest text-sm uppercase transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-primary/10">
+                            Explore Collection
+                        </button>
+<button class="text-primary font-body tracking-widest text-sm uppercase group">
+                            Our Story
+                            <span class="block h-px w-0 group-hover:w-full bg-primary transition-all duration-300 mx-auto mt-1"></span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Product Showcase (Asymmetric Layout) -->
+<section class="py-32 bg-surface-container-low px-12">
+<div class="max-w-[1600px] mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+<div class="max-w-xl">
+<h3 class="text-5xl font-noto text-on-surface mb-6">Essential Rituals</h3>
+<p class="text-secondary font-body">精密な科学と自然の調和。 Our essentials are crafted with rare botanical extracts and bio-active peptides to transform your skin's architecture.</p>
+</div>
+<div class="text-right">
+<a class="text-primary font-label text-sm tracking-[0.2em] uppercase border-b border-primary pb-2" href="#">View All Products</a>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
+<!-- Product 1: Serum (Tall) -->
+<div class="md:col-span-4 group cursor-pointer">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container-highest mb-8 relative">
+<img alt="Radiance Serum" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Minimalist product photography of a rose gold serum bottle standing on a textured stone surface, soft shadows, warm neutral color palette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCy9EcEmaJyfQvEf6Pj_ojYUFWvyHlpaAA1i29QlHwmSMbyfGGmt6Q0g7GQahf5Zt90AXjbCqcJ8LD1kXNhgHkNqUbwTzVTOyNSKp9Rrc_aLLk5NT9st_Ubm5XRlUviBRorSQs_y0-XCcU25sZ5ibjxWLNXkLeUluB4lOeVocUYn3CIBC-Gv-BWJhfv7RkcRuzevA2vN7HquV2OO_R26n7uzx_adBqIRKuFTbdYfWb_L3dKKCbxHy186X6q1S_YdFCITdJkkJhW8k9"/>
+<div class="absolute bottom-6 right-6 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="w-12 h-12 bg-surface rounded-full flex items-center justify-center text-primary shadow-xl">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<button class="w-12 h-12 rose-gold-gradient rounded-full flex items-center justify-center text-on-primary shadow-xl">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<p class="text-xs text-primary/60 font-body uppercase tracking-widest mb-1">Brightening</p>
+<h4 class="text-2xl font-noto text-on-surface">Radiance Serum</h4>
+<p class="text-secondary font-body text-sm mt-2">輝きのセラム</p>
+</div>
+<p class="text-xl font-noto text-primary">$240.00</p>
+</div>
+</div>
+<!-- Product 2: Cream (High Asymmetry) -->
+<div class="md:col-span-5 md:mt-32 group cursor-pointer">
+<div class="aspect-square overflow-hidden bg-surface-container-highest mb-8 relative">
+<img alt="Revitalizing Cream" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Close up of a luxury moisturizing cream in a glass jar, thick creamy texture visible, placed on a silk cloth, elegant studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQmjNoAIIIiUkVm2U_emRBsMLuWkxfDYS6YFSg1dXgEoqZec0qs1fFTm_dty2YiTixa2JAh50KfabV0dBCvJsXqA9KRJhrRYQot2dtAUidIVRRF12h6iJoTf4-Bvrh9UgRRGPxyEcnIC5GiFJzgR_Trlpm2Z_gb6Cf9rP296iPXWcgpJiy8QCoElu_do8R_L6SVGE7bstRzFAgUK9LleCZ9HrnIJWTLbyjW9zRCmfztlAENLwJsqn-0qOUsd7ZbSM76rkRRU3UBx1D"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<p class="text-xs text-primary/60 font-body uppercase tracking-widest mb-1">Hydration</p>
+<h4 class="text-2xl font-noto text-on-surface">Revitalizing Cream</h4>
+<p class="text-secondary font-body text-sm mt-2">復活クリーム</p>
+</div>
+<p class="text-xl font-noto text-primary">$185.00</p>
+</div>
+</div>
+<!-- Product 3: Oil (Small Accent) -->
+<div class="md:col-span-3 group cursor-pointer">
+<div class="aspect-[2/3] overflow-hidden bg-surface-container-highest mb-8 relative">
+<img alt="Botanical Oil" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Artistic shot of a golden cosmetic oil bottle with botanical leaves in soft focus background, dappled sunlight through leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5wVkJocdt0w6vnBfvzfa1upZXvudvFMsUTHxny4GXYQJQsJddACVyNcLRPqOmMene8Jz_oCDpYHqWfKsJSDlzhC9-QFYvIsFlI__LVOiqiHQ9JAFsXAh_eMm5QjlBpKcYCZw636q1oyi3daDfpBknwJK5D2ou_xnwMcTppG3NFNhSW1PbPgc4mPkPLADs8R_rGMHGtu7dlzv-fYGRfVNrKb5OMcJTfbWzG8Ee0PmQUZrNINMkQuiT_vlHdVAF3mlRPhXCMB8a653W"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<p class="text-xs text-primary/60 font-body uppercase tracking-widest mb-1">Nourishing</p>
+<h4 class="text-2xl font-noto text-on-surface">Botanical Oil</h4>
+<p class="text-secondary font-body text-sm mt-2">ボタニカルオイル</p>
+</div>
+<p class="text-xl font-noto text-primary">$120.00</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Brand Philosophy (High Contrast Charcoal) -->
+<section class="bg-[#36454F] py-32 overflow-hidden">
+<div class="max-w-[1920px] mx-auto px-12 flex flex-col md:flex-row items-center gap-24">
+<div class="w-full md:w-1/2 relative">
+<div class="absolute -top-12 -left-12 text-[#F5F5DC]/10 text-[10rem] font-noto italic select-none">Essence</div>
+<img alt="Laboratory extraction" class="relative z-10 w-full h-[600px] object-cover grayscale opacity-80 brightness-75 transition-all duration-1000 hover:grayscale-0 hover:opacity-100" data-alt="Sophisticated laboratory scene with glass beakers and botanical elements, dramatic chiaroscuro lighting, luxury science aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPapez5bOMu-QM3jsd5_uiE4Go9YBWQwpHfPebbUs4Ck17K2EQj1vDycawoa0yuMzh7Puuc2fzGdoylrakdAtYas1XCkG9p8BRjO-gsreTI6XQS-GJd5XuE1nJimY0rwXH150IW0pzTVSe8e7zN0rY0jqumFubSEfMDK1VcR1aXgHS9qkaf189-CykWmFdSlQAgjxQ2nUyf5r49HgsHmpwZfc_7-yLeeg8rv4Wbjvd8qVBzO8sv9S-2PaAO4doXHJ8IA6GyfzH8Q2n"/>
+</div>
+<div class="w-full md:w-1/2 text-[#F5F5DC]">
+<span class="label-md uppercase tracking-[0.4em] text-[#B76E79] mb-8 block font-body">Our Philosophy | 哲学</span>
+<h2 class="text-5xl md:text-6xl font-noto font-light mb-10 leading-tight">
+                        Where Science <br/>
+                        Meets <span class="italic text-[#B76E79]">Nature’s Spirit</span>.
+                    </h2>
+<p class="text-lg font-body text-[#F5F5DC]/70 mb-12 max-w-lg leading-relaxed">
+                        At the heart of ELIXIR lies a radical commitment to purity. We harvest only the most potent seasonal botanicals at their peak vitality, then refine them through advanced cryo-extraction technology to preserve their living essence.
+                    </p>
+<div class="grid grid-cols-2 gap-12 border-t border-[#F5F5DC]/10 pt-12">
+<div>
+<h5 class="text-[#B76E79] font-noto text-2xl mb-2">Purity Pure</h5>
+<p class="text-sm font-body opacity-60">100% Organically sourced ingredients from our private Japanese estates.</p>
+</div>
+<div>
+<h5 class="text-[#B76E79] font-noto text-2xl mb-2">Advanced Bio</h5>
+<p class="text-sm font-body opacity-60">Nanotechnology delivery systems for cellular-level absorption.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Signature Component: Product Reveal -->
+<section class="py-32 bg-surface">
+<div class="max-w-[1200px] mx-auto px-12 relative flex items-center justify-center">
+<div class="text-center z-0">
+<h2 class="text-[12rem] font-noto font-light text-surface-container-high leading-none tracking-tighter">ELIXIR</h2>
+</div>
+<div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+<img alt="Center Bottle" class="h-[500px] object-contain drop-shadow-[0_40px_40px_rgba(27,29,14,0.08)] pointer-events-auto cursor-pointer hover:scale-105 transition-transform duration-700" data-alt="A solitary cosmetic serum bottle perfectly centered, clean background with soft gradients, studio lighting highlighting rose gold details" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEqA_ws_GqxEWfC5KD4EC1Nw7atZI7OA3_kOGcanGK0KAqSCV5NfrUuqDibCtQ2aP1N1FJOfW6jPVWqJjS9iApvYYj7K8TO3TN7Zx9TTKozHOt7mbHbm7wX9tG2DwjEaP6glGc_8k4F-xk_6XUcmZDt-PIBuhEVH3SlcQw19-9J3c62yrIFmFRcKzm0bkTA_2aiWdCsZtfI4EFkMioxZzUMMo-f4ph2iDmqKuVHDKcI4rLzARRDUxTsm_jECi5MOpGwqFdKO_3CZEc"/>
+</div>
+<div class="absolute bottom-0 text-center w-full pb-8">
+<p class="text-primary font-body tracking-[0.5em] uppercase text-xs">A New Era of Skincare | スキンケアの新しい時代</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#F5F5DC] dark:bg-[#36454F] w-full border-t border-[#d7c1c3]/15">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-12 py-16 gap-8 max-w-[1920px] mx-auto">
+<div class="order-2 md:order-1">
+<p class="font-['Manrope'] text-xs tracking-widest uppercase text-[#36454F]/60 dark:text-[#F5F5DC]/60">© 2024 ELIXIR COSMÉTIQUES. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="order-1 md:order-2">
+<h3 class="text-xl font-light tracking-[0.15em] text-[#36454F] dark:text-[#F5F5DC]">ELIXIR</h3>
+</div>
+<div class="order-3 flex gap-8">
+<a class="font-['Manrope'] text-xs tracking-widest uppercase text-[#36454F]/60 dark:text-[#F5F5DC]/60 hover:underline decoration-[#B76E79] underline-offset-4" href="#">Privacy Policy</a>
+<a class="font-['Manrope'] text-xs tracking-widest uppercase text-[#36454F]/60 dark:text-[#F5F5DC]/60 hover:underline decoration-[#B76E79] underline-offset-4" href="#">Terms of Service</a>
+<a class="font-['Manrope'] text-xs tracking-widest uppercase text-[#36454F]/60 dark:text-[#F5F5DC]/60 hover:underline decoration-[#B76E79] underline-offset-4" href="#">Shipping &amp; Returns</a>
+<a class="font-['Manrope'] text-xs tracking-widest uppercase text-[#36454F]/60 dark:text-[#F5F5DC]/60 hover:underline decoration-[#B76E79] underline-offset-4" href="#">Contact Us</a>
+</div>
+</div>
+</footer>
+</body></html>

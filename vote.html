@@ -498,18 +498,11 @@
       <div class="design-letter">D</div>
       <span class="card-status" id="status-D">未投票</span>
     </div>
-    <div class="preview-container" style="cursor:default">
+    <div class="preview-container" onclick="openPcPreview('D')">
       <div class="preview-overlay"></div>
-      <div class="preview-fallback" style="background: linear-gradient(135deg, #0a0f0a 0%, #0f1a0f 50%, #122212 100%);">
-        <div style="text-align:center;">
-          <div style="font-size:11px;color:rgba(100,180,100,0.4);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">BOTANIQUE PURE</div>
-          <div style="font-size:56px;font-weight:800;color:rgba(100,180,100,0.2);letter-spacing:0.05em;margin-bottom:8px;">ELIXIR</div>
-          <div style="width:40px;height:1px;background:rgba(100,180,100,0.15);margin:0 auto 12px;"></div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.15);letter-spacing:0.08em;">COSMETIQUES</div>
-          <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,0.15);">クリーム / チャコール / ローズゴールド</div>
-        </div>
-      </div>
-      <div class="preview-overlay-bottom"></div>
+      <iframe src="./designs/stitch/index.html" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+      <div class="iframe-click-cover"></div>
+      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
       <button class="vote-btn" data-design="D" onclick="vote('D')">⭐ このデザインに投票</button>
@@ -576,7 +569,7 @@
     A: { type: 'modal', url: './designs/claude.html' },
     B: { type: 'modal', url: 'https://cream-charcoal-dream.lovable.app' },
     C: { type: 'modal', url: './designs/v0/index.html' },
-    D: { type: 'tab', url: 'https://stitch.withgoogle.com/projects/14169148014083121834' },
+    D: { type: 'modal', url: './designs/stitch/index.html' },
     E: { type: 'modal', url: 'https://framer.com/projects/Tactical-Staple--2FhYs6pHjopFWsMcZLln-eL4KI?node=augiA20Il&view=preview' },
   };
 
