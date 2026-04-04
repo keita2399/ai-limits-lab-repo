@@ -483,16 +483,9 @@
     </div>
     <div class="preview-container" onclick="openPcPreview('C')">
       <div class="preview-overlay"></div>
-      <div class="preview-fallback" style="background: linear-gradient(135deg, #1a1408 0%, #2d2410 50%, #3d3018 100%);">
-        <div style="text-align:center;">
-          <div style="font-size:13px;color:rgba(200,160,80,0.5);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">ATELIER</div>
-          <div style="font-size:48px;font-weight:300;color:rgba(200,160,80,0.3);font-family:Georgia,serif;margin-bottom:6px;">Timeless</div>
-          <div style="font-size:48px;font-weight:300;color:rgba(200,160,80,0.3);font-family:Georgia,serif;margin-bottom:20px;">Elegance</div>
-          <div style="width:60px;height:1px;background:rgba(200,160,80,0.2);margin:0 auto 16px;"></div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.1em;">Cormorant Garamond · クリーム / チャコール</div>
-        </div>
-      </div>
-      <div class="preview-overlay-bottom"></div>
+      <iframe src="./designs/v0/index.html" loading="lazy"></iframe>
+      <div class="iframe-click-cover"></div>
+      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
       <button class="vote-btn" data-design="C" onclick="vote('C')">⭐ このデザインに投票</button>
@@ -505,7 +498,7 @@
       <div class="design-letter">D</div>
       <span class="card-status" id="status-D">未投票</span>
     </div>
-    <div class="preview-container" onclick="openPcPreview('D')">
+    <div class="preview-container" style="cursor:default">
       <div class="preview-overlay"></div>
       <div class="preview-fallback" style="background: linear-gradient(135deg, #0a0f0a 0%, #0f1a0f 50%, #122212 100%);">
         <div style="text-align:center;">
@@ -529,7 +522,7 @@
       <div class="design-letter">E</div>
       <span class="card-status" id="status-E">未投票</span>
     </div>
-    <div class="preview-container" onclick="openPcPreview('E')">
+    <div class="preview-container" style="cursor:default">
       <div class="preview-overlay"></div>
       <div class="preview-fallback" style="background: linear-gradient(135deg, #f8f8f8 0%, #efefef 100%);">
         <div style="text-align:center;">
@@ -582,7 +575,7 @@
   const pcPreviewConfig = {
     A: { type: 'modal', url: './designs/claude.html' },
     B: { type: 'modal', url: 'https://cream-charcoal-dream.lovable.app' },
-    C: { type: 'tab', url: 'https://v0.dev/chat/elegant-serif-design-fLnQj2OActj' },
+    C: { type: 'modal', url: './designs/v0/index.html' },
     D: { type: 'tab', url: 'https://stitch.withgoogle.com/projects/14169148014083121834' },
     E: { type: 'modal', url: 'https://framer.com/projects/Tactical-Staple--2FhYs6pHjopFWsMcZLln-eL4KI?node=augiA20Il&view=preview' },
   };
