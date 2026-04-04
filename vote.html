@@ -142,6 +142,7 @@
     height: 420px;
     overflow: hidden;
     background: #111;
+    cursor: pointer;
   }
 
   .preview-container iframe {
@@ -440,10 +441,9 @@
       <div class="design-letter">A</div>
       <span class="card-status" id="status-A">未投票</span>
     </div>
-    <div class="preview-container">
+    <div class="preview-container" onclick="openPcPreview('A')">
       <div class="preview-overlay"></div>
       <iframe id="iframe-A" src="" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
-      <button class="pc-preview-btn" onclick="openPcPreview('A');event.stopPropagation()">💻 PC版</button>
       <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
@@ -457,10 +457,9 @@
       <div class="design-letter">B</div>
       <span class="card-status" id="status-B">未投票</span>
     </div>
-    <div class="preview-container">
+    <div class="preview-container" onclick="openPcPreview('B')">
       <div class="preview-overlay"></div>
       <iframe src="https://cream-charcoal-dream.lovable.app" loading="lazy"></iframe>
-      <button class="pc-preview-btn" onclick="openPcPreview('B');event.stopPropagation()">💻 PC版</button>
       <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
@@ -474,7 +473,7 @@
       <div class="design-letter">C</div>
       <span class="card-status" id="status-C">未投票</span>
     </div>
-    <div class="preview-container">
+    <div class="preview-container" onclick="openPcPreview('C')">
       <div class="preview-overlay"></div>
       <div class="preview-fallback" style="background: linear-gradient(135deg, #1a1408 0%, #2d2410 50%, #3d3018 100%);">
         <div style="text-align:center;">
@@ -485,7 +484,6 @@
           <div style="font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.1em;">Cormorant Garamond · クリーム / チャコール</div>
         </div>
       </div>
-      <a href="https://v0.app/chat/elegant-serif-design-fLnQj2OActj" target="_blank" class="pc-preview-btn" onclick="event.stopPropagation()">↗ PC版</a>
       <div class="preview-overlay-bottom"></div>
     </div>
     <div class="card-footer">
@@ -499,7 +497,7 @@
       <div class="design-letter">D</div>
       <span class="card-status" id="status-D">未投票</span>
     </div>
-    <div class="preview-container">
+    <div class="preview-container" onclick="openPcPreview('D')">
       <div class="preview-overlay"></div>
       <div class="preview-fallback" style="background: linear-gradient(135deg, #0a0f0a 0%, #0f1a0f 50%, #122212 100%);">
         <div style="text-align:center;">
@@ -510,7 +508,6 @@
           <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,0.15);">クリーム / チャコール / ローズゴールド</div>
         </div>
       </div>
-      <a href="https://stitch.withgoogle.com/projects/14169148014083121834" target="_blank" class="pc-preview-btn" onclick="event.stopPropagation()">↗ PC版</a>
       <div class="preview-overlay-bottom"></div>
     </div>
     <div class="card-footer">
@@ -524,7 +521,7 @@
       <div class="design-letter">E</div>
       <span class="card-status" id="status-E">未投票</span>
     </div>
-    <div class="preview-container">
+    <div class="preview-container" onclick="openPcPreview('E')">
       <div class="preview-overlay"></div>
       <div class="preview-fallback" style="background: linear-gradient(135deg, #f8f8f8 0%, #efefef 100%);">
         <div style="text-align:center;">
@@ -537,7 +534,6 @@
           <div style="font-size:10px;color:rgba(0,0,0,0.12);margin-top:4px;">— ワイヤーフレームデザイン —</div>
         </div>
       </div>
-      <button class="pc-preview-btn" onclick="openPcPreview('E');event.stopPropagation()">💻 PC版</button>
       <div class="preview-overlay-bottom"></div>
     </div>
     <div class="card-footer">
@@ -558,7 +554,7 @@
 <div id="pcModal">
   <div class="pc-modal-header">
     <span class="pc-modal-title" id="pcModalTitle">PC版プレビュー</span>
-    <button class="pc-modal-close" onclick="closePcPreview()">✕</button>
+    <button class="pc-modal-close" onclick="history.back()">✕</button>
   </div>
   <div id="pcModalWrap">
     <iframe id="pcModalIframe" src="" sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation"></iframe>
@@ -576,18 +572,25 @@
 
   // PC Preview
   const pcPreviewConfig = {
-    A: './designs/claude.html',
-    B: 'https://cream-charcoal-dream.lovable.app',
-    E: 'https://framer.com/projects/Tactical-Staple--2FhYs6pHjopFWsMcZLln-eL4KI?node=augiA20Il&view=preview',
+    A: { type: 'modal', url: './designs/claude.html' },
+    B: { type: 'modal', url: 'https://cream-charcoal-dream.lovable.app' },
+    C: { type: 'tab', url: 'https://v0.dev/chat/elegant-serif-design-fLnQj2OActj' },
+    D: { type: 'tab', url: 'https://stitch.withgoogle.com/projects/14169148014083121834' },
+    E: { type: 'modal', url: 'https://framer.com/projects/Tactical-Staple--2FhYs6pHjopFWsMcZLln-eL4KI?node=augiA20Il&view=preview' },
   };
 
   function openPcPreview(design) {
-    const url = pcPreviewConfig[design];
-    if (!url) return;
+    const config = pcPreviewConfig[design];
+    if (!config) return;
+    if (config.type === 'tab') {
+      window.open(config.url, '_blank');
+      return;
+    }
     document.getElementById('pcModalTitle').textContent = `Design ${design} — PC版プレビュー`;
-    document.getElementById('pcModalIframe').src = url;
+    document.getElementById('pcModalIframe').src = config.url;
     document.getElementById('pcModal').classList.add('open');
     document.body.style.overflow = 'hidden';
+    history.pushState({ pcModal: true }, '');
     setTimeout(updatePcModalScale, 30);
   }
 
@@ -596,6 +599,12 @@
     document.getElementById('pcModalIframe').src = '';
     document.body.style.overflow = '';
   }
+
+  window.addEventListener('popstate', () => {
+    if (document.getElementById('pcModal').classList.contains('open')) {
+      closePcPreview();
+    }
+  });
 
   function updatePcModalScale() {
     const wrap = document.getElementById('pcModalWrap');
