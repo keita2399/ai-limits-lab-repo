@@ -322,6 +322,90 @@
     pointer-events: none;
     z-index: 999;
   }
+
+  /* PC Preview Button */
+  .pc-preview-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+    padding: 6px 12px;
+    background: rgba(0,0,0,0.65);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 6px;
+    color: rgba(255,255,255,0.75);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+  .pc-preview-btn:hover {
+    background: rgba(200,149,108,0.85);
+    border-color: rgba(200,149,108,0.5);
+    color: white;
+  }
+
+  /* PC Preview Modal */
+  #pcModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    background: #0a0a0e;
+    flex-direction: column;
+  }
+  #pcModal.open { display: flex; }
+  .pc-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 48px;
+    background: #1a1a22;
+    border-bottom: 1px solid #2a2a35;
+    flex-shrink: 0;
+  }
+  .pc-modal-title {
+    font-size: 13px;
+    color: #888;
+    font-weight: 500;
+  }
+  .pc-modal-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #2a2a35;
+    background: transparent;
+    color: #888;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .pc-modal-close:hover { background: rgba(255,255,255,0.1); color: white; }
+  #pcModalWrap {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+  }
+  #pcModalIframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1280px;
+    border: none;
+    transform-origin: top left;
+  }
 </style>
 </head>
 <body>
@@ -359,6 +443,7 @@
     <div class="preview-container">
       <div class="preview-overlay"></div>
       <iframe id="iframe-A" src="" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+      <button class="pc-preview-btn" onclick="openPcPreview('A');event.stopPropagation()">💻 PC版</button>
       <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
@@ -375,6 +460,7 @@
     <div class="preview-container">
       <div class="preview-overlay"></div>
       <iframe src="https://cream-charcoal-dream.lovable.app" loading="lazy"></iframe>
+      <button class="pc-preview-btn" onclick="openPcPreview('B');event.stopPropagation()">💻 PC版</button>
       <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
@@ -402,6 +488,7 @@
           🔗 フルプレビューを開く
         </a>
       </div>
+      <a href="https://v0.app/chat/elegant-serif-design-fLnQj2OActj" target="_blank" class="pc-preview-btn" onclick="event.stopPropagation()">↗ PC版</a>
       <div class="preview-overlay-bottom"></div>
     </div>
     <div class="card-footer">
@@ -429,6 +516,7 @@
           🔗 フルプレビューを開く
         </a>
       </div>
+      <a href="https://stitch.withgoogle.com/projects/14169148014083121834" target="_blank" class="pc-preview-btn" onclick="event.stopPropagation()">↗ PC版</a>
       <div class="preview-overlay-bottom"></div>
     </div>
     <div class="card-footer">
@@ -458,6 +546,7 @@
           🔗 フルプレビューを開く
         </a>
       </div>
+      <button class="pc-preview-btn" onclick="openPcPreview('E');event.stopPropagation()">💻 PC版</button>
       <div class="preview-overlay-bottom"></div>
     </div>
     <div class="card-footer">
@@ -474,14 +563,59 @@
   <div class="vote-count" id="voteCount">まだ投票していません</div>
 </div>
 
+<!-- PC Preview Modal -->
+<div id="pcModal">
+  <div class="pc-modal-header">
+    <span class="pc-modal-title" id="pcModalTitle">PC版プレビュー</span>
+    <button class="pc-modal-close" onclick="closePcPreview()">✕</button>
+  </div>
+  <div id="pcModalWrap">
+    <iframe id="pcModalIframe" src="" sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation"></iframe>
+  </div>
+</div>
+
 <!-- Reveal Overlay -->
 <div id="revealOverlay">
   <div id="revealContent"></div>
 </div>
 
 <script>
-  // Design A: Claude — embed as data URI
+  // Design A: Claude
   document.getElementById('iframe-A').src = './designs/claude.html';
+
+  // PC Preview
+  const pcPreviewConfig = {
+    A: './designs/claude.html',
+    B: 'https://cream-charcoal-dream.lovable.app',
+    E: 'https://framer.com/projects/Tactical-Staple--2FhYs6pHjopFWsMcZLln-eL4KI?node=augiA20Il&view=preview',
+  };
+
+  function openPcPreview(design) {
+    const url = pcPreviewConfig[design];
+    if (!url) return;
+    document.getElementById('pcModalTitle').textContent = `Design ${design} — PC版プレビュー`;
+    document.getElementById('pcModalIframe').src = url;
+    document.getElementById('pcModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(updatePcModalScale, 30);
+  }
+
+  function closePcPreview() {
+    document.getElementById('pcModal').classList.remove('open');
+    document.getElementById('pcModalIframe').src = '';
+    document.body.style.overflow = '';
+  }
+
+  function updatePcModalScale() {
+    const wrap = document.getElementById('pcModalWrap');
+    const iframe = document.getElementById('pcModalIframe');
+    if (!wrap || !iframe) return;
+    const scale = wrap.clientWidth / 1280;
+    iframe.style.transform = `scale(${scale})`;
+    iframe.style.height = (wrap.clientHeight / scale) + 'px';
+  }
+
+  window.addEventListener('resize', updatePcModalScale);
 
   let currentVote = null;
 
