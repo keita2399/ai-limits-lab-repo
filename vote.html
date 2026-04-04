@@ -362,7 +362,7 @@
   <div class="design-card" id="card-A">
     <div class="card-label">
       <div class="design-letter">A</div>
-      <span class="card-status" id="status-A">未投票</span>
+      <span class="card-status" id="status-A"></span>
     </div>
     <div class="preview-container" onclick="openPcPreview('A')">
       <div class="preview-overlay"></div>
@@ -379,7 +379,7 @@
   <div class="design-card" id="card-B">
     <div class="card-label">
       <div class="design-letter">B</div>
-      <span class="card-status" id="status-B">未投票</span>
+      <span class="card-status" id="status-B"></span>
     </div>
     <div class="preview-container" onclick="openPcPreview('B')">
       <div class="preview-overlay"></div>
@@ -396,7 +396,7 @@
   <div class="design-card" id="card-C">
     <div class="card-label">
       <div class="design-letter">C</div>
-      <span class="card-status" id="status-C">未投票</span>
+      <span class="card-status" id="status-C"></span>
     </div>
     <div class="preview-container" onclick="openPcPreview('C')">
       <div class="preview-overlay"></div>
@@ -413,7 +413,7 @@
   <div class="design-card" id="card-D">
     <div class="card-label">
       <div class="design-letter">D</div>
-      <span class="card-status" id="status-D">未投票</span>
+      <span class="card-status" id="status-D"></span>
     </div>
     <div class="preview-container" onclick="openPcPreview('D')">
       <div class="preview-overlay"></div>
@@ -430,22 +430,13 @@
   <div class="design-card" id="card-E">
     <div class="card-label">
       <div class="design-letter">E</div>
-      <span class="card-status" id="status-E">未投票</span>
+      <span class="card-status" id="status-E"></span>
     </div>
     <div class="preview-container" onclick="openPcPreview('E')">
       <div class="preview-overlay"></div>
-      <div class="preview-fallback" style="background: linear-gradient(135deg, #f8f8f8 0%, #efefef 100%);">
-        <div style="text-align:center;">
-          <div style="font-size:11px;color:rgba(0,0,0,0.25);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Éclat®</div>
-          <div style="font-size:52px;font-weight:700;color:rgba(0,0,0,0.12);letter-spacing:-0.02em;margin-bottom:6px;">Luminesse</div>
-          <div style="width:200px;height:120px;background:rgba(0,0,0,0.06);border-radius:8px;margin:12px auto;display:flex;align-items:center;justify-content:center;">
-            <div style="font-size:28px;color:rgba(0,0,0,0.08);">◼◂▶</div>
-          </div>
-          <div style="font-size:11px;color:rgba(0,0,0,0.2);letter-spacing:0.05em;">Experience indulgence and radiance.</div>
-          <div style="font-size:10px;color:rgba(0,0,0,0.12);margin-top:4px;">— ワイヤーフレームデザイン —</div>
-        </div>
-      </div>
-      <div class="preview-overlay-bottom"></div>
+      <iframe src="https://tactical-staple-198764.framer.app" loading="lazy"></iframe>
+      <div class="iframe-click-cover"></div>
+      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
       <button class="vote-btn" data-design="E" onclick="vote('E')">⭐ このデザインに投票</button>
@@ -501,7 +492,7 @@
     // Reset all cards
     document.querySelectorAll('.design-card').forEach(c => c.classList.remove('selected'));
     document.querySelectorAll('.vote-btn').forEach(b => { b.classList.remove('selected'); b.textContent = '⭐ このデザインに投票'; });
-    document.querySelectorAll('.card-status').forEach(s => { s.className = 'card-status'; s.textContent = '未投票'; });
+    document.querySelectorAll('.card-status').forEach(s => { s.className = 'card-status'; s.textContent = ''; });
     // Select this card
     document.getElementById('card-' + design).classList.add('selected');
     document.querySelector(`.vote-btn[data-design="${design}"]`).classList.add('selected');
