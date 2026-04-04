@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI ãã¶ã¤ã³å¯¾æ±º â ãé¡01: é«ç´ã³ã¹ã¡ãã©ã³ãLP</title>
+<title>AI デザイン対決 — お題01: 高級コスメブランドLP</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -76,7 +76,7 @@
   .rules h3 { font-size: 14px; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
   .rules ul { list-style: none; }
   .rules li { font-size: 14px; color: var(--text); padding: 4px 0; padding-left: 20px; position: relative; }
-  .rules li::before { content: 'âº'; position: absolute; left: 0; color: var(--accent); }
+  .rules li::before { content: '›'; position: absolute; left: 0; color: var(--accent); }
 
   .designs-grid {
     display: grid;
@@ -329,56 +329,56 @@
 <canvas id="confettiCanvas"></canvas>
 
 <div class="header">
-  <h1>ð AI ãã¶ã¤ã³5ç¤¾å¯¾æ±º</h1>
-  <p>5ã¤ã®AIãã¼ã«ãåããé¡ã§ãã¶ã¤ã³ãã¾ãããã©ã®ãã¶ã¤ã³ãæãè¯ãã¨æãã¾ããï¼</p>
+  <h1>🏆 AI デザイン5社対決</h1>
+  <p>5つのAIツールが同じお題でデザインしました。どのデザインが最も良いと思いますか？</p>
   <div class="prompt-box">
-    ãé¡ï¼é«ç´ã³ã¹ã¡ãã©ã³ãã®ã©ã³ãã£ã³ã°ãã¼ã¸ï¼ãã¼ã­ã¼ã»ã¯ã·ã§ã³ã»ååç´¹ä»ã»ãã©ã³ãå²å­¦ãã¯ãªã¼ã ã»ãã£ã³ã¼ã«ã»ã­ã¼ãºã´ã¼ã«ãï¼
+    お題：高級コスメブランドのランディングページ（ヒーローセクション・商品紹介・ブランド哲学、クリーム・チャコール・ローズゴールド）
   </div>
 </div>
 
 <div style="max-width:700px;margin:32px auto;padding:0 20px;">
   <div class="rules">
-    <h3>æç¥¨ã®ã«ã¼ã«</h3>
+    <h3>投票のルール</h3>
     <ul>
-      <li>Design AãE ã¯ããããç°ãªãAIãã¼ã«ãçæãããã®ã§ã</li>
-      <li>ã©ããã©ã®AIãã¯æç¥¨å®äºå¾ã«å¬éãã¾ã</li>
-      <li>ç´æã§ããããä¸çªè¯ããã¨æããã¶ã¤ã³ã«æç¥¨ãã¦ãã ãã</li>
-      <li>åãã¶ã¤ã³ã¯æ°ããã¿ãã§å¨ç»é¢ãã¬ãã¥ã¼ã§ãã¾ã</li>
+      <li>Design A〜E はそれぞれ異なるAIツールが生成したものです</li>
+      <li>どれがどのAIかは投票完了後に公開します</li>
+      <li>直感で「これが一番良い」と思うデザインに投票してください</li>
+      <li>各デザインは新しいタブで全画面プレビューできます</li>
     </ul>
   </div>
 </div>
 
 <div class="designs-grid" id="designsGrid">
 
-  <!-- Design A: Claude (LUMIÃRE) -->
+  <!-- Design A: Claude (LUMIÈRE) -->
   <div class="design-card" id="card-A">
     <div class="card-label">
       <div class="design-letter">A</div>
-      <span class="card-status" id="status-A">æªæç¥¨</span>
+      <span class="card-status" id="status-A">未投票</span>
     </div>
     <div class="preview-container">
       <div class="preview-overlay"></div>
       <iframe id="iframe-A" src="" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
-      <div class="preview-overlay-bottom"><span class="scroll-hint">â ã¹ã¯ã­ã¼ã«ã§ç¢ºèª</span></div>
+      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" data-design="A" onclick="vote('A')">â­ ãã®ãã¶ã¤ã³ã«æç¥¨</button>
+      <button class="vote-btn" data-design="A" onclick="vote('A')">⭐ このデザインに投票</button>
     </div>
   </div>
 
-  <!-- Design B: Lovable (MAISON BEAUTÃ) -->
+  <!-- Design B: Lovable (MAISON BEAUTÉ) -->
   <div class="design-card" id="card-B">
     <div class="card-label">
       <div class="design-letter">B</div>
-      <span class="card-status" id="status-B">æªæç¥¨</span>
+      <span class="card-status" id="status-B">未投票</span>
     </div>
     <div class="preview-container">
       <div class="preview-overlay"></div>
       <iframe src="https://cream-charcoal-dream.lovable.app" loading="lazy"></iframe>
-      <div class="preview-overlay-bottom"><span class="scroll-hint">â ã¹ã¯ã­ã¼ã«ã§ç¢ºèª</span></div>
+      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" data-design="B" onclick="vote('B')">â­ ãã®ãã¶ã¤ã³ã«æç¥¨</button>
+      <button class="vote-btn" data-design="B" onclick="vote('B')">⭐ このデザインに投票</button>
     </div>
   </div>
 
@@ -386,7 +386,7 @@
   <div class="design-card" id="card-C">
     <div class="card-label">
       <div class="design-letter">C</div>
-      <span class="card-status" id="status-C">æªæç¥¨</span>
+      <span class="card-status" id="status-C">未投票</span>
     </div>
     <div class="preview-container">
       <div class="preview-overlay"></div>
@@ -396,16 +396,16 @@
           <div style="font-size:48px;font-weight:300;color:rgba(200,160,80,0.3);font-family:Georgia,serif;margin-bottom:6px;">Timeless</div>
           <div style="font-size:48px;font-weight:300;color:rgba(200,160,80,0.3);font-family:Georgia,serif;margin-bottom:20px;">Elegance</div>
           <div style="width:60px;height:1px;background:rgba(200,160,80,0.2);margin:0 auto 16px;"></div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.1em;">Cormorant Garamond Â· ã¯ãªã¼ã  / ãã£ã³ã¼ã«</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.1em;">Cormorant Garamond · クリーム / チャコール</div>
         </div>
         <a href="https://v0.app/chat/elegant-serif-design-fLnQj2OActj" target="_blank" class="preview-open-btn">
-          ð ãã«ãã¬ãã¥ã¼ãéã
+          🔗 フルプレビューを開く
         </a>
       </div>
       <div class="preview-overlay-bottom"></div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" data-design="C" onclick="vote('C')">â­ ãã®ãã¶ã¤ã³ã«æç¥¨</button>
+      <button class="vote-btn" data-design="C" onclick="vote('C')">⭐ このデザインに投票</button>
     </div>
   </div>
 
@@ -413,7 +413,7 @@
   <div class="design-card" id="card-D">
     <div class="card-label">
       <div class="design-letter">D</div>
-      <span class="card-status" id="status-D">æªæç¥¨</span>
+      <span class="card-status" id="status-D">未投票</span>
     </div>
     <div class="preview-container">
       <div class="preview-overlay"></div>
@@ -423,45 +423,45 @@
           <div style="font-size:56px;font-weight:800;color:rgba(100,180,100,0.2);letter-spacing:0.05em;margin-bottom:8px;">ELIXIR</div>
           <div style="width:40px;height:1px;background:rgba(100,180,100,0.15);margin:0 auto 12px;"></div>
           <div style="font-size:11px;color:rgba(255,255,255,0.15);letter-spacing:0.08em;">COSMETIQUES</div>
-          <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,0.15);">ã¯ãªã¼ã  / ãã£ã³ã¼ã« / ã­ã¼ãºã´ã¼ã«ã</div>
+          <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,0.15);">クリーム / チャコール / ローズゴールド</div>
         </div>
         <a href="https://stitch.withgoogle.com/projects/14169148014083121834" target="_blank" class="preview-open-btn">
-          ð ãã«ãã¬ãã¥ã¼ãéã
+          🔗 フルプレビューを開く
         </a>
       </div>
       <div class="preview-overlay-bottom"></div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" data-design="D" onclick="vote('D')">â­ ãã®ãã¶ã¤ã³ã«æç¥¨</button>
+      <button class="vote-btn" data-design="D" onclick="vote('D')">⭐ このデザインに投票</button>
     </div>
   </div>
 
-  <!-- Design E: Framer AI (Luminesse / Ãclat) -->
+  <!-- Design E: Framer AI (Luminesse / Éclat) -->
   <div class="design-card" id="card-E">
     <div class="card-label">
       <div class="design-letter">E</div>
-      <span class="card-status" id="status-E">æªæç¥¨</span>
+      <span class="card-status" id="status-E">未投票</span>
     </div>
     <div class="preview-container">
       <div class="preview-overlay"></div>
       <div class="preview-fallback" style="background: linear-gradient(135deg, #f8f8f8 0%, #efefef 100%);">
         <div style="text-align:center;">
-          <div style="font-size:11px;color:rgba(0,0,0,0.25);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">ÃclatÂ®</div>
+          <div style="font-size:11px;color:rgba(0,0,0,0.25);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Éclat®</div>
           <div style="font-size:52px;font-weight:700;color:rgba(0,0,0,0.12);letter-spacing:-0.02em;margin-bottom:6px;">Luminesse</div>
           <div style="width:200px;height:120px;background:rgba(0,0,0,0.06);border-radius:8px;margin:12px auto;display:flex;align-items:center;justify-content:center;">
-            <div style="font-size:28px;color:rgba(0,0,0,0.08);">â¼ââ¶</div>
+            <div style="font-size:28px;color:rgba(0,0,0,0.08);">◼◂▶</div>
           </div>
           <div style="font-size:11px;color:rgba(0,0,0,0.2);letter-spacing:0.05em;">Experience indulgence and radiance.</div>
-          <div style="font-size:10px;color:rgba(0,0,0,0.12);margin-top:4px;">â ã¯ã¤ã¤ã¼ãã¬ã¼ã ãã¶ã¤ã³ â</div>
+          <div style="font-size:10px;color:rgba(0,0,0,0.12);margin-top:4px;">— ワイヤーフレームデザイン —</div>
         </div>
         <a href="https://framer.com/projects/Tactical-Staple--2FhYs6pHjopFWsMcZLln-eL4KI?node=augiA20Il&view=preview" target="_blank" class="preview-open-btn" style="background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.15);color:rgba(0,0,0,0.5);">
-          ð ãã«ãã¬ãã¥ã¼ãéã
+          🔗 フルプレビューを開く
         </a>
       </div>
       <div class="preview-overlay-bottom"></div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" data-design="E" onclick="vote('E')">â­ ãã®ãã¶ã¤ã³ã«æç¥¨</button>
+      <button class="vote-btn" data-design="E" onclick="vote('E')">⭐ このデザインに投票</button>
     </div>
   </div>
 
@@ -469,9 +469,9 @@
 
 <div class="submit-section">
   <button class="submit-btn" id="submitBtn" disabled onclick="submitVote()">
-    æç¥¨ããï¼1ã¤é¸ãã§ãã ããï¼
+    投票する（1つ選んでください）
   </button>
-  <div class="vote-count" id="voteCount">ã¾ã æç¥¨ãã¦ãã¾ãã</div>
+  <div class="vote-count" id="voteCount">まだ投票していません</div>
 </div>
 
 <!-- Reveal Overlay -->
@@ -480,35 +480,35 @@
 </div>
 
 <script>
-  // Design A: Claude â embed as data URI
+  // Design A: Claude — embed as data URI
   document.getElementById('iframe-A').src = './designs/claude.html';
 
   let currentVote = null;
 
   const tools = {
-    A: { name: 'Claude (Anthropic)', brand: 'LUMJÃRE', desc: 'ã¯ãªã¼ã Ããã£ã³ã¼ã«Ãã­ã¼ãºã´ã¼ã«ããCSSã§ä½ãããããã«ãã¸ã¥ã¢ã«ãCormorant Garamond + Interãã©ã³ã', color: '#c8956c' },
-    B: { name: 'Lovable', brand: 'MAISON BEAUTÃ', desc: 'ãLa BeautÃ© Ãternelleãå®éã®ã³ã¹ã¡è£½ååçãAIçæãã¼ã­ã¼ç»åãå¤§çç³ã®èæ¯', color: '#e879a0' },
-    C: { name: 'v0 (Vercel)', brand: 'ATELIER', desc: 'Cormorant Garamond Ã Montserratãã¨ã¬ã¬ã³ããªã»ãªãã¿ã¤ãã°ã©ãã£', color: '#c8a055' },
-    D: { name: 'Google Stitch', brand: 'ELIXIR', desc: 'é«åè³ªè£½ååçãã¯ãªã¼ã Ããã£ã³ã¼ã«Ãã­ã¼ãºã´ã¼ã«ãããã¿ãã«ã«ãã©ã³ãã³ã³ã»ãã', color: '#64b440' },
-    E: { name: 'Framer AI', brand: 'Luminesse / ÃclatÂ®', desc: 'æ§é çã¯ã¤ã¤ã¼ãã¬ã¼ã ããã¬ã¼ã¹ãã«ãã¼ç»åãã·ã³ãã«ãªé»Ãç½ã®ã¿ã¤ãã°ã©ãã£', color: '#888' },
+    A: { name: 'Claude (Anthropic)', brand: 'LUMIÈRE', desc: 'クリーム×チャコール×ローズゴールド、CSSで作られたボトルビジュアル、Cormorant Garamond + Interフォント', color: '#c8956c' },
+    B: { name: 'Lovable', brand: 'MAISON BEAUTÉ', desc: '「La Beauté Éternelle」実際のコスメ製品写真、AI生成ヒーロー画像、大理石の背景', color: '#e879a0' },
+    C: { name: 'v0 (Vercel)', brand: 'ATELIER', desc: 'Cormorant Garamond × Montserrat、エレガントなセリフタイポグラフィ、フェードアニメーション', color: '#c8a055' },
+    D: { name: 'Google Stitch', brand: 'ELIXIR', desc: '高品質製品写真、クリーム×チャコール×ローズゴールド、ボタニカルブランドコンセプト', color: '#64b440' },
+    E: { name: 'Framer AI', brand: 'Luminesse / Éclat®', desc: '構造的ワイヤーフレーム、プレースホルダー画像、シンプルな黒×白のタイポグラフィ', color: '#888' },
   };
 
   function vote(design) {
     currentVote = design;
     // Reset all cards
     document.querySelectorAll('.design-card').forEach(c => c.classList.remove('selected'));
-    document.querySelectorAll('.vote-btn').forEach(b => { b.classList.remove('selected'); b.textContent = 'â­ ãã®ãã¶ã¤ã³ã«æç¥¨'; });
-    document.querySelectorAll('.card-status').forEach(s => { s.className = 'card-status'; s.textContent = 'æªæç¥¨'; });
+    document.querySelectorAll('.vote-btn').forEach(b => { b.classList.remove('selected'); b.textContent = '⭐ このデザインに投票'; });
+    document.querySelectorAll('.card-status').forEach(s => { s.className = 'card-status'; s.textContent = '未投票'; });
     // Select this card
     document.getElementById('card-' + design).classList.add('selected');
     document.querySelector(`.vote-btn[data-design="${design}"]`).classList.add('selected');
-    document.querySelector(`.vote-btn[data-design="${design}"]`).textContent = 'â æç¥¨æ¸ã¿';
+    document.querySelector(`.vote-btn[data-design="${design}"]`).textContent = '✓ 投票済み';
     document.getElementById('status-' + design).className = 'card-status voted';
-    document.getElementById('status-' + design).textContent = 'â é¸æä¸­';
+    document.getElementById('status-' + design).textContent = '✓ 選択中';
     // Enable submit
     document.getElementById('submitBtn').disabled = false;
-    document.getElementById('submitBtn').textContent = `Design ${design} ã«æç¥¨ãã`;
-    document.getElementById('voteCount').textContent = `Design ${design} ãé¸æãã¾ãã`;
+    document.getElementById('submitBtn').textContent = `Design ${design} に投票する`;
+    document.getElementById('voteCount').textContent = `Design ${design} を選択しました`;
   }
 
   async function submitVote() {
@@ -527,32 +527,32 @@
 
     const chosen = tools[currentVote];
 
-    // Phase 1: éè¨ä¸­
-    content.innerHTML = `<div style="text-align:center;padding:120px 0;"><div style="font-size:24px;color:rgba(255,255,255,0.4);">éè¨ä¸­...</div><div style="font-size:48px;margin-top:20px">â³</div></div>`;
+    // Phase 1: 集計中
+    content.innerHTML = `<div style="text-align:center;padding:120px 0;"><div style="font-size:24px;color:rgba(255,255,255,0.4);">集計中...</div><div style="font-size:48px;margin-top:20px">⏳</div></div>`;
     await sleep(1800);
 
-    // Phase 2: çºè¡¨
-    content.innerHTML = `<div style="text-align:center;padding:100px 0;animation:fadeSlideUp 0.5s ease-out;"><div style="font-size:36px;font-weight:700;color:#fff;">æ­£è§£ãçºè¡¨ãã¾ã</div></div>`;
+    // Phase 2: 発表
+    content.innerHTML = `<div style="text-align:center;padding:100px 0;animation:fadeSlideUp 0.5s ease-out;"><div style="font-size:36px;font-weight:700;color:#fff;">正解を発表します</div></div>`;
     await sleep(1500);
 
-    // Phase 3: ããªãã®é¸æ
+    // Phase 3: あなたの選択
     content.innerHTML = `
       <div style="animation:fadeSlideUp 0.6s ease-out;max-width:600px;margin:0 auto;padding:60px 0;">
         <div style="text-align:center;margin-bottom:40px;">
-          <div style="font-size:16px;color:rgba(255,255,255,0.4);margin-bottom:12px;">ããªããé¸ãã ã®ã¯...</div>
+          <div style="font-size:16px;color:rgba(255,255,255,0.4);margin-bottom:12px;">あなたが選んだのは...</div>
           <div style="font-size:72px;font-weight:800;background:linear-gradient(135deg,#e8c9a0,#c8956c,#9b6fe0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Design ${currentVote}</div>
         </div>
         <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px;text-align:center;">
-          <div style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">ãã®ãã¶ã¤ã³ãä½ã£ãã®ã¯...</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">このデザインを作ったのは...</div>
           <div style="font-size:32px;font-weight:700;color:${chosen.color};margin-bottom:8px;">${chosen.name}</div>
-          <div style="font-size:20px;color:rgba(255,255,255,0.6);margin-bottom:16px;">ã${chosen.brand}ã</div>
+          <div style="font-size:20px;color:rgba(255,255,255,0.6);margin-bottom:16px;">「${chosen.brand}」</div>
           <div style="font-size:14px;color:rgba(255,255,255,0.4);line-height:1.6;">${chosen.desc}</div>
         </div>
       </div>`;
     await sleep(1000);
     launchConfetti();
 
-    // Phase 4: å¨ãã¶ã¤ã³ä¸è¦§
+    // Phase 4: 全デザイン一覧
     await sleep(1500);
     let allDesigns = '';
     for (const [key, tool] of Object.entries(tools)) {
@@ -561,20 +561,20 @@
         <div style="display:flex;align-items:center;gap:16px;padding:14px 20px;background:rgba(255,255,255,0.04);border-radius:12px;margin:8px 0;border-left:3px solid ${isChosen ? tool.color : 'transparent'};${isChosen ? 'background:rgba(255,255,255,0.08)' : ''}">
           <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,${tool.color},${tool.color}88);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:white;flex-shrink:0;">${key}</div>
           <div style="flex:1">
-            <div style="font-size:15px;font-weight:600;color:${isChosen ? tool.color : 'rgba(255,255,255,0.8)'}">${tool.name} ${isChosen ? 'â ããªãã®é¸æ' : ''}</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:2px;">ã${tool.brand}ã</div>
+            <div style="font-size:15px;font-weight:600;color:${isChosen ? tool.color : 'rgba(255,255,255,0.8)'}">${tool.name} ${isChosen ? '← あなたの選択' : ''}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:2px;">「${tool.brand}」</div>
           </div>
         </div>`;
     }
 
     content.innerHTML += `
       <div style="animation:fadeSlideUp 0.6s ease-out 0.3s both;max-width:600px;margin:0 auto;padding:0 0 40px;">
-        <div style="font-size:16px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:20px;text-transform:uppercase;letter-spacing:0.1em;font-size:12px;">å¨ãã¶ã¤ã³ã®æ­£ä½</div>
+        <div style="font-size:16px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:20px;text-transform:uppercase;letter-spacing:0.1em;font-size:12px;">全デザインの正体</div>
         ${allDesigns}
         <div style="text-align:center;margin-top:40px;">
           <button onclick="document.getElementById('revealOverlay').style.display='none'" 
             style="padding:14px 40px;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:12px;font-size:15px;cursor:pointer;font-family:inherit;">
-            éãã
+            閉じる
           </button>
         </div>
       </div>`;
