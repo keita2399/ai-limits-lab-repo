@@ -231,6 +231,12 @@
     z-index: 1;
   }
 
+  .iframe-click-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
   .preview-overlay-bottom {
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -444,6 +450,7 @@
     <div class="preview-container" onclick="openPcPreview('A')">
       <div class="preview-overlay"></div>
       <iframe id="iframe-A" src="" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+      <div class="iframe-click-cover"></div>
       <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
@@ -460,6 +467,7 @@
     <div class="preview-container" onclick="openPcPreview('B')">
       <div class="preview-overlay"></div>
       <iframe src="https://cream-charcoal-dream.lovable.app" loading="lazy"></iframe>
+      <div class="iframe-click-cover"></div>
       <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
