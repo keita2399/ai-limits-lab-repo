@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI デザイン対決 — お題01: 高級コスメブランドLP</title>
+<title>AI デザイン対決 — お題02: 老舗和菓子ブランドLP</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
   :root {
-    --bg: #0f0f13;
-    --card: #1a1a22;
-    --border: #2a2a35;
-    --accent: #c8956c;
-    --accent2: #9b6fe0;
-    --text: #e8e8f0;
-    --muted: #888;
+    --bg: #0a0f0c;
+    --card: #111a14;
+    --border: #1e2e22;
+    --accent: #4a9b6a;
+    --accent2: #c9a84c;
+    --text: #e8f0ea;
+    --muted: #7a9080;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,17 +26,43 @@
     min-height: 100vh;
   }
 
+  /* nav back */
+  .top-nav {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,15,12,0.8);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .top-nav a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .top-nav a:hover { color: var(--text); }
+  .top-nav .sep { color: var(--border); }
+  .top-nav .current { font-size: 13px; color: var(--accent); font-weight: 600; }
+
   .header {
     text-align: center;
     padding: 60px 20px 40px;
-    background: linear-gradient(180deg, #1a0a30 0%, var(--bg) 100%);
+    background: linear-gradient(180deg, #0a2010 0%, var(--bg) 100%);
   }
 
   .header h1 {
     font-size: clamp(24px, 4vw, 42px);
     font-weight: 700;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #e8c9a0, #c8956c, #9b6fe0);
+    background: linear-gradient(135deg, #a8d5b0, #4a9b6a, #c9a84c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -53,8 +79,8 @@
 
   .prompt-box {
     display: inline-block;
-    background: rgba(200, 149, 108, 0.1);
-    border: 1px solid rgba(200, 149, 108, 0.3);
+    background: rgba(74, 155, 106, 0.1);
+    border: 1px solid rgba(74, 155, 106, 0.3);
     border-radius: 12px;
     padding: 12px 24px;
     margin-top: 24px;
@@ -65,7 +91,6 @@
   .rules {
     max-width: 700px;
     margin: 0 auto 50px;
-    padding: 0 20px;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
@@ -99,8 +124,13 @@
 
   .design-card.selected {
     border-color: var(--accent);
-    box-shadow: 0 0 30px rgba(200, 149, 108, 0.2);
+    box-shadow: 0 0 30px rgba(74, 155, 106, 0.2);
     transform: translateY(-2px);
+  }
+
+  .design-card.coming-soon {
+    opacity: 0.55;
+    pointer-events: none;
   }
 
   .card-label {
@@ -133,8 +163,13 @@
   }
 
   .card-status.voted {
-    background: rgba(200, 149, 108, 0.2);
+    background: rgba(74, 155, 106, 0.2);
     color: var(--accent);
+  }
+
+  .card-status.soon {
+    background: rgba(201, 168, 76, 0.15);
+    color: var(--accent2);
   }
 
   .preview-container {
@@ -160,7 +195,7 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: linear-gradient(135deg, #0d1f12 0%, #0a1a0e 50%, #0d1f12 100%);
   }
 
   .preview-tool-badge {
@@ -171,23 +206,11 @@
     opacity: 0.15;
   }
 
-  .preview-open-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 8px;
-    color: white;
-    font-size: 14px;
-    text-decoration: none;
-    transition: background 0.2s;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
+  .preview-soon-label {
+    font-size: 13px;
+    color: rgba(201, 168, 76, 0.6);
+    letter-spacing: 0.1em;
   }
-
-  .preview-open-btn:hover { background: rgba(255,255,255,0.2); }
 
   .card-footer {
     padding: 16px 20px;
@@ -213,7 +236,7 @@
   .vote-btn:hover {
     border-color: var(--accent);
     color: var(--accent);
-    background: rgba(200, 149, 108, 0.1);
+    background: rgba(74, 155, 106, 0.1);
   }
 
   .vote-btn.selected {
@@ -226,7 +249,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 40px;
-    background: linear-gradient(180deg, rgba(26,26,34,0.9) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(17,26,20,0.9) 0%, transparent 100%);
     pointer-events: none;
     z-index: 1;
   }
@@ -241,7 +264,7 @@
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 60px;
-    background: linear-gradient(0deg, rgba(26,26,34,0.95) 0%, transparent 100%);
+    background: linear-gradient(0deg, rgba(17,26,20,0.95) 0%, transparent 100%);
     pointer-events: none;
     z-index: 1;
     display: flex;
@@ -300,7 +323,7 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: #0a0a14;
+    background: #060c08;
     z-index: 1000;
     overflow-y: auto;
     padding: 40px 20px;
@@ -316,12 +339,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes winnerPop {
-    0% { opacity: 0; transform: scale(0.7); }
-    60% { transform: scale(1.05); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-
   canvas#confettiCanvas {
     position: fixed;
     top: 0; left: 0;
@@ -329,24 +346,23 @@
     pointer-events: none;
     z-index: 999;
   }
-
 </style>
 </head>
 <body>
 
 <canvas id="confettiCanvas"></canvas>
 
-<div style="padding:12px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border);background:rgba(15,15,19,0.8);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50;">
-  <span style="font-size:13px;color:var(--accent);font-weight:600;">お題01: 高級コスメLP</span>
-  <span style="color:var(--border);">|</span>
-  <a href="./vote02.html" style="font-size:13px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">お題02: 老舗和菓子ブランドLP →</a>
+<div class="top-nav">
+  <a href="./vote.html">← お題01: 高級コスメLP</a>
+  <span class="sep">|</span>
+  <span class="current">お題02: 老舗和菓子ブランドLP</span>
 </div>
 
 <div class="header">
   <h1>🏆 AI デザイン5社対決</h1>
   <p>5つのAIツールが同じお題でデザインしました。どのデザインが最も良いと思いますか？</p>
   <div class="prompt-box">
-    お題：高級コスメブランドのランディングページ（ヒーローセクション・商品紹介・ブランド哲学、クリーム・チャコール・ローズゴールド）
+    お題02：老舗和菓子ブランド「菓匠 翠月」のランディングページ（創業1868年京都、深緑・クリーム・金、Noto Serif JP）
   </div>
 </div>
 
@@ -358,13 +374,14 @@
       <li>どれがどのAIかは投票完了後に公開します</li>
       <li>直感で「これが一番良い」と思うデザインに投票してください</li>
       <li>各デザインは新しいタブで全画面プレビューできます</li>
+      <li>「準備中」のデザインは近日公開予定です</li>
     </ul>
   </div>
 </div>
 
 <div class="designs-grid" id="designsGrid">
 
-  <!-- Design A: Claude (LUMIÈRE) -->
+  <!-- Design A: Claude -->
   <div class="design-card" id="card-A">
     <div class="card-label">
       <div class="design-letter">A</div>
@@ -381,41 +398,41 @@
     </div>
   </div>
 
-  <!-- Design B: Lovable (MAISON BEAUTÉ) -->
-  <div class="design-card" id="card-B">
+  <!-- Design B: Lovable (準備中) -->
+  <div class="design-card coming-soon" id="card-B">
     <div class="card-label">
       <div class="design-letter">B</div>
-      <span class="card-status" id="status-B"></span>
+      <span class="card-status soon">準備中</span>
     </div>
-    <div class="preview-container" onclick="openPcPreview('B')">
-      <div class="preview-overlay"></div>
-      <iframe src="https://cream-charcoal-dream.lovable.app" loading="lazy"></iframe>
-      <div class="iframe-click-cover"></div>
-      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
+    <div class="preview-container">
+      <div class="preview-fallback">
+        <div class="preview-tool-badge">B</div>
+        <div class="preview-soon-label">COMING SOON</div>
+      </div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" data-design="B" onclick="vote('B')">⭐ このデザインに投票</button>
+      <button class="vote-btn" disabled>準備中</button>
     </div>
   </div>
 
-  <!-- Design C: v0 (Elegant serif) -->
-  <div class="design-card" id="card-C">
+  <!-- Design C: v0 (準備中) -->
+  <div class="design-card coming-soon" id="card-C">
     <div class="card-label">
       <div class="design-letter">C</div>
-      <span class="card-status" id="status-C"></span>
+      <span class="card-status soon">準備中</span>
     </div>
-    <div class="preview-container" onclick="openPcPreview('C')">
-      <div class="preview-overlay"></div>
-      <iframe src="./designs/v0/index.html" loading="lazy"></iframe>
-      <div class="iframe-click-cover"></div>
-      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
+    <div class="preview-container">
+      <div class="preview-fallback">
+        <div class="preview-tool-badge">C</div>
+        <div class="preview-soon-label">COMING SOON</div>
+      </div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" data-design="C" onclick="vote('C')">⭐ このデザインに投票</button>
+      <button class="vote-btn" disabled>準備中</button>
     </div>
   </div>
 
-  <!-- Design D: Google Stitch (ELIXIR) -->
+  <!-- Design D: Google Stitch -->
   <div class="design-card" id="card-D">
     <div class="card-label">
       <div class="design-letter">D</div>
@@ -423,7 +440,7 @@
     </div>
     <div class="preview-container" onclick="openPcPreview('D')">
       <div class="preview-overlay"></div>
-      <iframe src="./designs/stitch/index.html" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+      <iframe src="./designs/02/stitch/index.html" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
       <div class="iframe-click-cover"></div>
       <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
@@ -432,20 +449,20 @@
     </div>
   </div>
 
-  <!-- Design E: Framer AI (Luminesse / Éclat) -->
-  <div class="design-card" id="card-E">
+  <!-- Design E: Framer (準備中) -->
+  <div class="design-card coming-soon" id="card-E">
     <div class="card-label">
       <div class="design-letter">E</div>
-      <span class="card-status" id="status-E"></span>
+      <span class="card-status soon">準備中</span>
     </div>
     <div class="preview-container">
-      <div class="preview-overlay"></div>
-      <iframe src="https://tactical-staple-198764.framer.app" loading="lazy"></iframe>
-      <a href="https://tactical-staple-198764.framer.app" target="_blank" onclick="event.stopPropagation()" style="position:absolute;top:8px;right:8px;z-index:5;padding:5px 10px;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:rgba(255,255,255,0.8);font-size:11px;font-weight:600;text-decoration:none;">↗ 別タブで開く</a>
-      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
+      <div class="preview-fallback">
+        <div class="preview-tool-badge">E</div>
+        <div class="preview-soon-label">COMING SOON</div>
+      </div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" data-design="E" onclick="vote('E')">⭐ このデザインに投票</button>
+      <button class="vote-btn" disabled>準備中</button>
     </div>
   </div>
 
@@ -458,7 +475,6 @@
   <div class="vote-count" id="voteCount">まだ投票していません</div>
 </div>
 
-
 <!-- Reveal Overlay -->
 <div id="revealOverlay">
   <div id="revealContent"></div>
@@ -466,15 +482,12 @@
 
 <script>
   // Design A: Claude
-  document.getElementById('iframe-A').src = './designs/claude.html';
+  document.getElementById('iframe-A').src = './designs/02/claude.html';
 
   // PC Preview
   const pcPreviewConfig = {
-    A: { type: 'modal', url: './designs/claude.html' },
-    B: { type: 'modal', url: 'https://cream-charcoal-dream.lovable.app' },
-    C: { type: 'modal', url: './designs/v0/index.html' },
-    D: { type: 'modal', url: './designs/stitch/index.html' },
-    E: { type: 'modal', url: 'https://tactical-staple-198764.framer.app' },
+    A: { type: 'modal', url: './designs/02/claude.html' },
+    D: { type: 'modal', url: './designs/02/stitch/index.html' },
   };
 
   function openPcPreview(design) {
@@ -486,37 +499,33 @@
   let currentVote = null;
 
   const tools = {
-    A: { name: 'Claude (Anthropic)', brand: 'LUMIÈRE', desc: 'クリーム×チャコール×ローズゴールド、CSSで作られたボトルビジュアル、Cormorant Garamond + Interフォント', color: '#c8956c' },
-    B: { name: 'Lovable', brand: 'MAISON BEAUTÉ', desc: '「La Beauté Éternelle」実際のコスメ製品写真、AI生成ヒーロー画像、大理石の背景', color: '#e879a0' },
-    C: { name: 'v0 (Vercel)', brand: 'ATELIER', desc: 'Cormorant Garamond × Montserrat、エレガントなセリフタイポグラフィ、フェードアニメーション', color: '#c8a055' },
-    D: { name: 'Google Stitch', brand: 'ELIXIR', desc: '高品質製品写真、クリーム×チャコール×ローズゴールド、ボタニカルブランドコンセプト', color: '#64b440' },
-    E: { name: 'Framer AI', brand: 'Luminesse / Éclat®', desc: '構造的ワイヤーフレーム、プレースホルダー画像、シンプルな黒×白のタイポグラフィ', color: '#888' },
+    A: { name: 'Claude (Anthropic)', brand: '菓匠 翠月 — Claude版', desc: '深緑・クリーム・金のカラーパレット、CSSアートで和菓子を表現、Shippori Mincho + Noto Serif JPフォント', color: '#4a9b6a' },
+    B: { name: 'Lovable', brand: '菓匠 翠月 — Lovable版', desc: '準備中', color: '#e879a0' },
+    C: { name: 'v0 (Vercel)', brand: '菓匠 翠月 — v0版', desc: '準備中', color: '#c8a055' },
+    D: { name: 'Google Stitch', brand: '菓匠 翠月 — Stitch版', desc: '"The Digital Tea Room"コンセプト、Manrope + Shippori Mincho、Ma（余白）を活かした和モダン設計', color: '#64b440' },
+    E: { name: 'Framer AI', brand: '菓匠 翠月 — Framer版', desc: '準備中', color: '#888' },
   };
 
   function vote(design) {
     currentVote = design;
-    // Reset all cards
-    document.querySelectorAll('.design-card').forEach(c => c.classList.remove('selected'));
-    document.querySelectorAll('.vote-btn').forEach(b => { b.classList.remove('selected'); b.textContent = '⭐ このデザインに投票'; });
-    document.querySelectorAll('.card-status').forEach(s => { s.className = 'card-status'; s.textContent = ''; });
-    // Select this card
+    document.querySelectorAll('.design-card:not(.coming-soon)').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.vote-btn[data-design]').forEach(b => { b.classList.remove('selected'); b.textContent = '⭐ このデザインに投票'; });
+    document.querySelectorAll('.card-status:not(.soon)').forEach(s => { s.className = 'card-status'; s.textContent = ''; });
     document.getElementById('card-' + design).classList.add('selected');
     document.querySelector(`.vote-btn[data-design="${design}"]`).classList.add('selected');
     document.querySelector(`.vote-btn[data-design="${design}"]`).textContent = '✓ 投票済み';
     document.getElementById('status-' + design).className = 'card-status voted';
     document.getElementById('status-' + design).textContent = '✓ 選択中';
-    // Enable submit
     document.getElementById('submitBtn').disabled = false;
     document.getElementById('submitBtn').textContent = `Design ${design} に投票する`;
     document.getElementById('voteCount').textContent = `Design ${design} を選択しました`;
   }
 
-  const API_URL = 'https://ai-limits-lab-repo.vercel.app/api/vote';
+  const API_URL = 'https://ai-limits-lab-repo.vercel.app/api/vote02';
 
   async function submitVote() {
     if (!currentVote) return;
     document.getElementById('submitBtn').disabled = true;
-    // バックグラウンドで投票を送信
     fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -543,20 +552,17 @@
 
     const chosen = tools[currentVote];
 
-    // Phase 1: 集計中
     content.innerHTML = `<div style="text-align:center;padding:120px 0;"><div style="font-size:24px;color:rgba(255,255,255,0.4);">集計中...</div><div style="font-size:48px;margin-top:20px">⏳</div></div>`;
     await sleep(1800);
 
-    // Phase 2: 発表
     content.innerHTML = `<div style="text-align:center;padding:100px 0;animation:fadeSlideUp 0.5s ease-out;"><div style="font-size:36px;font-weight:700;color:#fff;">正解を発表します</div></div>`;
     await sleep(1500);
 
-    // Phase 3: あなたの選択
     content.innerHTML = `
       <div style="animation:fadeSlideUp 0.6s ease-out;max-width:600px;margin:0 auto;padding:60px 0;">
         <div style="text-align:center;margin-bottom:40px;">
           <div style="font-size:16px;color:rgba(255,255,255,0.4);margin-bottom:12px;">あなたが選んだのは...</div>
-          <div style="font-size:72px;font-weight:800;background:linear-gradient(135deg,#e8c9a0,#c8956c,#9b6fe0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Design ${currentVote}</div>
+          <div style="font-size:72px;font-weight:800;background:linear-gradient(135deg,#a8d5b0,#4a9b6a,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Design ${currentVote}</div>
         </div>
         <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px;text-align:center;">
           <div style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">このデザインを作ったのは...</div>
@@ -568,7 +574,6 @@
     await sleep(1000);
     launchConfetti();
 
-    // Phase 4: 全デザイン一覧
     await sleep(1500);
     let allDesigns = '';
     for (const [key, tool] of Object.entries(tools)) {
@@ -585,10 +590,9 @@
 
     content.innerHTML += `
       <div style="animation:fadeSlideUp 0.6s ease-out 0.3s both;max-width:600px;margin:0 auto;padding:0 0 40px;">
-        <div style="font-size:16px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:20px;text-transform:uppercase;letter-spacing:0.1em;font-size:12px;">全デザインの正体</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:20px;text-transform:uppercase;letter-spacing:0.1em;">全デザインの正体</div>
         ${allDesigns}
         <div id="voteResultSection" style="margin-top:32px;"></div>
-
         <div style="text-align:center;margin-top:40px;">
           <button onclick="document.getElementById('revealOverlay').style.display='none';document.body.style.overflow='';"
             style="padding:14px 40px;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:12px;font-size:15px;cursor:pointer;font-family:inherit;">
@@ -597,16 +601,15 @@
         </div>
       </div>`;
 
-    // 集計を取得して表示
     fetchVoteCounts().then(data => {
       const section = document.getElementById('voteResultSection');
       if (!section || !data) return;
       const { counts, total } = data;
-      const designs = ['A','B','C','D','E'];
-      const max = Math.max(...Object.values(counts));
-      const bars = designs.map(k => {
+      const activeDesigns = ['A', 'D'];
+      const max = Math.max(...activeDesigns.map(k => counts[k]));
+      const bars = activeDesigns.map(k => {
         const pct = total > 0 ? Math.round(counts[k] / total * 100) : 0;
-        const width = total > 0 ? Math.round(counts[k] / max * 100) : 0;
+        const width = max > 0 ? Math.round(counts[k] / max * 100) : 0;
         const isWinner = counts[k] === max && total > 0;
         const color = tools[k].color;
         return `
@@ -615,12 +618,12 @@
             <div style="flex:1;background:rgba(255,255,255,0.06);border-radius:6px;overflow:hidden;height:22px;">
               <div style="width:${width}%;height:100%;background:${color};opacity:0.7;border-radius:6px;transition:width 0.8s ease;"></div>
             </div>
-            <div style="width:60px;font-size:13px;color:rgba(255,255,255,0.6);text-align:right;">${counts[k]}票 (${pct}%)${isWinner ? ' 🏆' : ''}</div>
+            <div style="width:80px;font-size:13px;color:rgba(255,255,255,0.6);text-align:right;">${counts[k]}票 (${pct}%)${isWinner ? ' 🏆' : ''}</div>
           </div>`;
       }).join('');
       section.innerHTML = `
         <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;">
-          <div style="font-size:11px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;text-align:center;">現在の集計 — 合計 ${total} 票</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;text-align:center;">現在の集計 — 合計 ${total} 票（A・D のみ公開中）</div>
           ${bars}
         </div>`;
     });
@@ -639,7 +642,7 @@
   resizeCanvas();
 
   function launchConfetti() {
-    const colors = ['#c8956c','#9b6fe0','#FFD700','#FF6B9D','#4ECDC4','#45B7D1'];
+    const colors = ['#4a9b6a','#c9a84c','#a8d5b0','#ffffff','#2d5a3d','#f5f0e8'];
     for (let i = 0; i < 100; i++) {
       particles.push({
         x: Math.random() * confettiCanvas.width, y: -20 - Math.random() * 100,

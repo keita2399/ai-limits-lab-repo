@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&amp;family=Shippori+Mincho:wght@400;700&amp;family=Manrope:wght@300;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "inverse-surface": "#32302b",
+                "surface-container": "#f2ede5",
+                "primary": "#144227",
+                "on-surface": "#1d1c17",
+                "surface-container-lowest": "#ffffff",
+                "on-primary": "#ffffff",
+                "on-secondary-fixed": "#241a00",
+                "on-tertiary-fixed-variant": "#474746",
+                "tertiary-fixed": "#e5e2e1",
+                "secondary": "#755b00",
+                "on-tertiary-fixed": "#1c1b1b",
+                "background": "#fef9f1",
+                "surface-dim": "#ded9d2",
+                "tertiary-fixed-dim": "#c8c6c5",
+                "on-error-container": "#93000a",
+                "on-surface-variant": "#414942",
+                "on-error": "#ffffff",
+                "on-secondary": "#ffffff",
+                "secondary-container": "#fed977",
+                "outline": "#717971",
+                "secondary-fixed-dim": "#e6c364",
+                "inverse-on-surface": "#f5f0e8",
+                "inverse-primary": "#a1d2ad",
+                "on-secondary-fixed-variant": "#584400",
+                "error": "#ba1a1a",
+                "on-primary-container": "#9ed0ab",
+                "tertiary": "#3b3a3a",
+                "tertiary-container": "#525151",
+                "on-tertiary-container": "#c6c4c3",
+                "on-secondary-container": "#785d00",
+                "on-primary-fixed": "#00210f",
+                "surface-container-high": "#ece8e0",
+                "surface-container-low": "#f8f3eb",
+                "surface-variant": "#e7e2da",
+                "primary-fixed-dim": "#a1d2ad",
+                "outline-variant": "#c1c9c0",
+                "surface-tint": "#3b684a",
+                "surface-container-highest": "#e7e2da",
+                "surface-bright": "#fef9f1",
+                "on-primary-fixed-variant": "#224f33",
+                "primary-container": "#2d5a3d",
+                "surface": "#fef9f1",
+                "primary-fixed": "#bceec8",
+                "on-tertiary": "#ffffff",
+                "on-background": "#1d1c17",
+                "error-container": "#ffdad6",
+                "secondary-fixed": "#ffe08f"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Shippori Mincho", "Noto Serif JP", "serif"],
+                "body": ["Noto Serif JP", "serif"],
+                "label": ["Manrope", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .writing-vertical { writing-mode: vertical-rl; }
+      .text-combine { text-combine-upright: all; }
+      .pattern-seigaiha {
+        background-image: radial-gradient(circle at 100% 150%, transparent 24%, #755b00 24%, #755b00 28%, transparent 28%, transparent 36%, #755b00 36%, #755b00 40%, transparent 40%, transparent 52%, #755b00 52%, #755b00 56%, transparent 56%, transparent 64%, #755b00 64%, #755b00 68%, transparent 68%, transparent 76%, #755b00 76%, #755b00 80%, transparent 80%);
+        background-size: 60px 35px;
+        opacity: 0.05;
+      }
+      .pattern-asanoha {
+        background-image: linear-gradient(30deg, #144227 12%, transparent 12.5%, transparent 87%, #144227 87.5%, #144227),
+          linear-gradient(150deg, #144227 12%, transparent 12.5%, transparent 87%, #144227 87.5%, #144227),
+          linear-gradient(30deg, #144227 12%, transparent 12.5%, transparent 87%, #144227 87.5%, #144227),
+          linear-gradient(150deg, #144227 12%, transparent 12.5%, transparent 87%, #144227 87.5%, #144227),
+          linear-gradient(60deg, #144227 25%, transparent 25.5%, transparent 75%, #144227 75.5%, #144227),
+          linear-gradient(60deg, #144227 25%, transparent 25.5%, transparent 75%, #144227 75.5%, #144227);
+        background-size: 80px 140px;
+        opacity: 0.03;
+      }
+      .glass-nav {
+        background: rgba(254, 249, 241, 0.8);
+        backdrop-filter: blur(16px);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary/30 selection:text-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 glass-nav">
+<div class="flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-70 transition-opacity">menu</button>
+<span class="text-xs font-label tracking-widest text-primary hidden md:block uppercase">Establishment 1868</span>
+</div>
+<h1 class="text-2xl font-bold tracking-[0.2em] text-primary font-headline">菓匠 翠月</h1>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-70 transition-opacity">shopping_bag</button>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[795px] flex flex-col items-center justify-center overflow-hidden px-6">
+<div class="absolute inset-0 pattern-asanoha z-0"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 max-w-7xl w-full">
+<!-- Vertical Poetry -->
+<div class="writing-vertical text-primary font-headline tracking-[0.5em] text-3xl md:text-5xl lg:text-6xl space-y-4 h-fit border-r border-primary/10 pr-8 md:pr-16">
+<p class="leading-relaxed">季節の美を、</p>
+<p class="leading-relaxed">ひとつの菓子に</p>
+</div>
+<div class="flex flex-col items-center md:items-start space-y-8 max-w-md">
+<div class="w-12 h-1 bg-secondary"></div>
+<p class="text-lg md:text-xl font-headline tracking-widest text-on-surface-variant leading-loose">
+                        明治元年創業、京都。<br/>
+                        百五十年の刻を経て受け継がれる、<br/>
+                        一期一会の調べ。
+                    </p>
+<div class="flex flex-col gap-2">
+<span class="font-label text-xs tracking-[0.3em] text-secondary uppercase">The Art of Wagashi</span>
+<a class="group flex items-center gap-4 text-primary font-bold tracking-widest border-b border-primary/20 pb-2 hover:border-primary transition-all" href="#collection">
+                            品書きを見る
+                            <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Scroll Indicator -->
+<div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50">
+<span class="font-label text-[10px] tracking-[0.4em] uppercase writing-vertical h-12">Scroll</span>
+<div class="w-[1px] h-16 bg-primary/30 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1/2 bg-primary"></div>
+</div>
+</div>
+</section>
+<!-- Featured Products -->
+<section class="py-24 md:py-40 px-6 max-w-7xl mx-auto" id="collection">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
+<div class="max-w-xl">
+<h2 class="text-4xl md:text-5xl font-headline text-primary mb-6">四季の逸品</h2>
+<p class="text-on-surface-variant leading-relaxed tracking-wide">厳選された素材と、京都の清らかな水。職人の感性が紡ぎ出す、五感で愉しむ芸術。</p>
+</div>
+<div class="writing-vertical text-secondary/30 text-7xl font-bold opacity-20 pointer-events-none select-none">
+                    SEASONS
+                </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
+<!-- Product Card 1 -->
+<div class="group">
+<div class="relative aspect-[4/5] bg-surface-container overflow-hidden mb-8">
+<img class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" data-alt="Minimalist top view of a delicate seasonal Japanese sweet wagashi on a textured ceramic plate, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmGj7Rkbs77rsY4wSEhnYuZMwmONNVxVhHt89g6eXLriNrqBTitHCSou1AkX2WTmDLNMPnH_XbLfK04hMn0-YDsbvci9a2wc31Kf6l-C49mEQLQrzS8DUYEYW3NK2pqkckgeEYC_nwW4tbMbflWd1IiSciAtMSYpTl95J2NjV43TpRTMa9RG7v7YmtiZMEQI2NDhwllzXNNOVmBT_Zc-cQj3acqkxoiJFjuqIklcoC3IBOR0iV3PqsxpqXee7N916eS2FZe6zpWKU"/>
+<div class="absolute top-4 right-4 writing-vertical bg-primary text-white px-2 py-4 text-xs tracking-widest">季節限定</div>
+</div>
+<div class="space-y-4">
+<h3 class="text-2xl font-headline text-primary">上生菓子</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">移ろう四季を写し取る、職人の手仕事。旬の素材が香る珠玉のひと品。</p>
+<div class="h-[1px] w-0 group-hover:w-full bg-secondary transition-all duration-500"></div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group mt-12 md:mt-24">
+<div class="relative aspect-[4/5] bg-surface-container overflow-hidden mb-8">
+<img class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" data-alt="Dark aesthetic photo of sliced dark yokan jelly on a slate board with a sprig of bamboo, elegant moody lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFtl-q3oKBZ5i1Nc8JlBac4y24pBPZQBxZKBBaqZyQK3MOMQO_vlhZVODLTRg1ynr4tU6EGM3ktBy5zW6BLZcsj-d3s37CSMr8OypM2wfZInUrsr87vW2Jm5C4zj6GBwQ_2k6rwQ_YuU53cdhrJH5Pl8JBLY9m6rx4cw2bZDxDGhyRhBuV8Zn31OjM5aWayGlwfi4iLgjBvzUkQv96qGahrzhcvVp2ISYT7JBN_SqctFLqpaeYhpNIifv3fA97nWRMDjWqR_KjhqQ"/>
+<div class="absolute inset-0 border border-primary/5 group-hover:border-primary/20 transition-colors"></div>
+</div>
+<div class="space-y-4">
+<h3 class="text-2xl font-headline text-primary">羊羹</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">丹波黒豆の深みと、静謐なる甘み。素材の滋味を凝縮した伝統の味。</p>
+<div class="h-[1px] w-0 group-hover:w-full bg-secondary transition-all duration-500"></div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group">
+<div class="relative aspect-[4/5] bg-surface-container overflow-hidden mb-8">
+<img class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" data-alt="Close up of translucent warabimochi cubes dusted with toasted kinako flour in a wooden box, warm atmospheric light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJsYtUD92p4XZeLqCu6WP_clHH3niI5VMSUOG1IvxBeZIMFKET-2Pckzoos2JVH7qJOMPEmowiUMtLbx7Hjlvibufm0joOam2rvCy7hEQDly7aWhs2_xR3ePZkY4izZSfoye1isMlx-fSYAQOb_5Lrz5At8Y_9yS-p-TwklPAECoiAq7rQSeZwgAeQUgBQ11YCNs15evBOKlscl2X2i79iifSkcitOHOPSmuZ8N468u5WGV5-gEwr_4DPEwcVirZDaPmQ9JiWZiy0"/>
+</div>
+<div class="space-y-4">
+<h3 class="text-2xl font-headline text-primary">わらびもち</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">極上の本わらび粉。とろけるような口どけと、上品なきな粉の薫り。</p>
+<div class="h-[1px] w-0 group-hover:w-full bg-secondary transition-all duration-500"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Brand Story -->
+<section class="relative bg-surface-container py-32 md:py-48 overflow-hidden">
+<div class="absolute inset-0 pattern-seigaiha"></div>
+<div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row gap-16 md:gap-32 items-center">
+<div class="w-full md:w-1/2 relative">
+<div class="absolute -top-12 -left-12 w-48 h-48 border border-secondary/20 hidden lg:block"></div>
+<div class="relative z-10 aspect-square md:aspect-[3/4] bg-surface-dim overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover opacity-60 mix-blend-multiply" data-alt="Artistic blurred photo of Japanese zen garden rocks and sand pattern, ethereal peaceful mood" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmFrXdnIhscjMOqnh4lz9lfjDHjFMSRHLxEMm_weW46lMehRl7btJG1nZtmhCVih7Vm2edg-w8RgBuG2MVoPjwwicnSyTXZLACtzvTMSZ0v3NignqGn-dtw5cZrBB3HZUEDVAd2jwIISQzKlabMDQT4wah2snv_23XptYLh9CXxT8DGFeGlpne_U53TFu9flnAWb3_gqc0eCse4fytbJQS_1F7PNtDNdOmN8rydil32AbRcpLtZrZ1jMqAC3AMHC_3DLVoU1AuBeo"/>
+<div class="absolute inset-0 flex items-center justify-center p-12">
+<span class="writing-vertical text-white text-4xl md:text-6xl font-headline tracking-[0.8em] font-bold">翠月百余年</span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-1/2 space-y-12">
+<header class="space-y-4">
+<h2 class="text-3xl md:text-4xl font-headline text-primary border-l-4 border-secondary pl-6">伝統と革新の調和</h2>
+<span class="font-label text-xs tracking-widest text-secondary uppercase font-bold">Our Heritage Since 1868</span>
+</header>
+<div class="space-y-8 text-on-surface-variant leading-[2.5] tracking-widest">
+<p>明治元年。激動の時代に京都の一角で暖簾を掲げた「翠月」は、以来百五十年にわたり、ただ一筋に菓子の道を歩んで参りました。</p>
+<p>代々受け継がれてきた職人の技を礎に、現代の感性を吹き込む。それは単なる伝統の継承ではなく、今を生きる人々の心に響く「新しき美」の探究でもあります。</p>
+<p>厳選された地元の旬素材と、澄んだ水。私たちは、菓子という小さな宇宙の中に、日本の美しい四季を封じ込めてお届けいたします。</p>
+</div>
+<button class="px-10 py-4 bg-primary text-on-primary text-sm font-label tracking-[0.2em] rounded-sm hover:bg-primary-container transition-colors shadow-lg">物語を詳しく読む</button>
+</div>
+</div>
+</section>
+<!-- Spring Collection 2026 -->
+<section class="py-24 md:py-40 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="bg-surface-variant p-8 md:p-20 relative overflow-hidden flex flex-col md:flex-row items-center gap-12 group">
+<div class="absolute top-0 right-0 p-8 text-secondary/10 text-9xl font-headline pointer-events-none select-none group-hover:scale-110 transition-transform duration-[2000ms]">
+                        春
+                    </div>
+<div class="w-full md:w-2/5 aspect-square bg-surface-container overflow-hidden rounded-lg shadow-xl relative">
+<img class="w-full h-full object-cover" data-alt="Beautiful composition of soft pink cherry blossoms on an old wooden surface with a cup of matcha green tea" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdAwiSYaveQXfwNGg8V_NDRpd0kr7e1WZr8q0CDXKYZXasOjJOcN1tw7rN4Z_VY5rzuTJcCUxHR2HvpH6drFvO1CHh_JGGaV7LYoPP6wCo7DBK6AxTopZiTj3C-pgZXzfaWpguSuttmg6umMkIh92HKUM-B0G_1i9bY8OMGJaPnt5AhxVkKTuKe04JqfNnalSIxeimy5t-UvfiIpm-xSBkbwbMx4gggFQ-6PY6mlHEnH-N8Z_wjB8Ag4OYylHxiAN6Uz6kKhLtHUU"/>
+<div class="absolute inset-0 bg-secondary/5"></div>
+</div>
+<div class="w-full md:w-3/5 space-y-8 relative z-10 text-center md:text-left">
+<h2 class="text-3xl md:text-5xl font-headline text-primary leading-tight">春コレクション 2026：<br/><span class="text-secondary">桜の香りを添えて</span></h2>
+<p class="text-on-surface-variant leading-loose max-w-lg mx-auto md:mx-0">
+                            暖かな陽光に誘われて、翠月が贈る春の調べ。<br/>
+                            ほのかな桜の香りと、春の芽吹きを感じさせる爽やかな甘み。<br/>
+                            この季節だけの特別な一期一会を。
+                        </p>
+<div class="flex flex-col md:flex-row items-center gap-6 pt-4">
+<button class="w-full md:w-auto px-12 py-4 bg-secondary text-white text-sm font-label tracking-widest rounded-sm hover:opacity-90 transition-opacity">詳しく見る</button>
+<span class="text-xs font-label text-on-surface-variant tracking-widest hidden md:block">限定数に達し次第、終了とさせていただきます。</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-variant border-t border-primary/5">
+<div class="flex flex-col items-center gap-6 py-16 px-8 w-full max-w-7xl mx-auto">
+<h2 class="font-headline text-3xl text-primary tracking-[0.3em]">菓匠 翠月</h2>
+<nav class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+<a class="text-xs font-label tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="#">お品書き</a>
+<a class="text-xs font-label tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="#">翠月の歩み</a>
+<a class="text-xs font-label tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="#">店舗案内</a>
+<a class="text-xs font-label tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="#">特定商取引法に基づく表記</a>
+<a class="text-xs font-label tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="#">プライバシーポリシー</a>
+<a class="text-xs font-label tracking-widest text-on-surface-variant hover:text-secondary transition-colors underline" href="#">お問い合わせ</a>
+</nav>
+<div class="w-12 h-[1px] bg-primary/20 my-4"></div>
+<p class="font-label text-[10px] text-on-surface-variant/60 tracking-[0.2em] text-center uppercase">
+                © 1868-2026 Kasho Suigetsu. All Rights Reserved.
+            </p>
+</div>
+</footer>
+<!-- Mobile Navigation (BottomNavBar) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 glass-nav z-50 border-t border-primary/5">
+<div class="flex justify-around items-center h-16 px-4">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-[9px] font-label tracking-tighter">ホーム</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant/60">
+<span class="material-symbols-outlined text-[20px]">filter_vintage</span>
+<span class="text-[9px] font-label tracking-tighter">お菓子</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant/60">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span class="text-[9px] font-label tracking-tighter">お品書き</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant/60">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span class="text-[9px] font-label tracking-tighter">店舗</span>
+</button>
+</div>
+</nav>
+</body></html>
