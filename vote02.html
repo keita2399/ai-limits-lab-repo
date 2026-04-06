@@ -359,8 +359,8 @@
 </div>
 
 <div class="header">
-  <h1>🏆 AI デザイン5社対決</h1>
-  <p>5つのAIツールが同じお題でデザインしました。どのデザインが最も良いと思いますか？</p>
+  <h1>🏆 AI デザイン対決</h1>
+  <p>4つのAIツールが同じお題でデザインしました。どのデザインが最も良いと思いますか？<br><span style="font-size:13px;color:var(--muted);">※ Framer AI は Free プラン制限により試合放棄</span></p>
   <div class="prompt-box">
     お題02：老舗和菓子ブランド「菓匠 翠月」のランディングページ（創業1868年京都、深緑・クリーム・金、Noto Serif JP）
   </div>
@@ -449,20 +449,23 @@
     </div>
   </div>
 
-  <!-- Design E: Framer (準備中) -->
+  <!-- Design E: Framer (試合放棄) -->
   <div class="design-card coming-soon" id="card-E">
     <div class="card-label">
       <div class="design-letter">E</div>
-      <span class="card-status soon">準備中</span>
+      <span class="card-status soon">試合放棄</span>
     </div>
     <div class="preview-container">
       <div class="preview-fallback">
         <div class="preview-tool-badge">E</div>
-        <div class="preview-soon-label">COMING SOON</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);text-align:center;padding:0 20px;line-height:1.7;">
+          Framer AI<br>
+          <span style="color:rgba(201,168,76,0.7);font-size:11px;">Free プランの制限により<br>ページ生成が未完了</span>
+        </div>
       </div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" disabled>準備中</button>
+      <button class="vote-btn" disabled style="font-size:12px;color:rgba(201,168,76,0.6);">Free プラン制限 — 試合放棄</button>
     </div>
   </div>
 
@@ -505,7 +508,7 @@
     B: { name: 'Lovable', brand: '菓匠 翠月 — Lovable版', desc: '淡いピンクと白の春らしい配色、和の花モチーフ、柔らかなアニメーション効果', color: '#e879a0' },
     C: { name: 'v0 (Vercel)', brand: '菓匠 翠月 — v0版', desc: '大型タイポグラフィと桜のCSSイラスト、浅葱色と墨のカラー、春コレクション展開', color: '#c8a055' },
     D: { name: 'Google Stitch', brand: '菓匠 翠月 — Stitch版', desc: '"The Digital Tea Room"コンセプト、Manrope + Shippori Mincho、Ma（余白）を活かした和モダン設計', color: '#64b440' },
-    E: { name: 'Framer AI', brand: '菓匠 翠月 — Framer版', desc: '準備中', color: '#888' },
+    E: { name: 'Framer AI', brand: '試合放棄', desc: 'Wireframer（Free プラン）でヒーロー・商品セクションまで生成できたが、Spring CollectionとFooterの追加で制限に到達。Free プランの壁を確認。', color: '#888' },
   };
 
   function vote(design) {
