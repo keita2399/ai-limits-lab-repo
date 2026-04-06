@@ -415,20 +415,20 @@
     </div>
   </div>
 
-  <!-- Design C: v0 (準備中) -->
-  <div class="design-card coming-soon" id="card-C">
+  <!-- Design C: v0 -->
+  <div class="design-card" id="card-C">
     <div class="card-label">
       <div class="design-letter">C</div>
-      <span class="card-status soon">準備中</span>
+      <span class="card-status" id="status-C"></span>
     </div>
-    <div class="preview-container">
-      <div class="preview-fallback">
-        <div class="preview-tool-badge">C</div>
-        <div class="preview-soon-label">COMING SOON</div>
-      </div>
+    <div class="preview-container" onclick="openPcPreview('C')">
+      <div class="preview-overlay"></div>
+      <iframe src="https://v0-luxury-wagashi-landing-page.vercel.app/" loading="lazy"></iframe>
+      <div class="iframe-click-cover"></div>
+      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" disabled>準備中</button>
+      <button class="vote-btn" data-design="C" onclick="vote('C')">⭐ このデザインに投票</button>
     </div>
   </div>
 
@@ -487,6 +487,7 @@
   // PC Preview
   const pcPreviewConfig = {
     A: { type: 'modal', url: './designs/02/claude.html' },
+    C: { type: 'modal', url: 'https://v0-luxury-wagashi-landing-page.vercel.app/' },
     D: { type: 'modal', url: './designs/02/stitch/index.html' },
   };
 
@@ -501,7 +502,7 @@
   const tools = {
     A: { name: 'Claude (Anthropic)', brand: '菓匠 翠月 — Claude版', desc: '深緑・クリーム・金のカラーパレット、CSSアートで和菓子を表現、Shippori Mincho + Noto Serif JPフォント', color: '#4a9b6a' },
     B: { name: 'Lovable', brand: '菓匠 翠月 — Lovable版', desc: '準備中', color: '#e879a0' },
-    C: { name: 'v0 (Vercel)', brand: '菓匠 翠月 — v0版', desc: '準備中', color: '#c8a055' },
+    C: { name: 'v0 (Vercel)', brand: '菓匠 翠月 — v0版', desc: '大型タイポグラフィと桜のCSSイラスト、浅葱色と墨のカラー、春コレクション展開', color: '#c8a055' },
     D: { name: 'Google Stitch', brand: '菓匠 翠月 — Stitch版', desc: '"The Digital Tea Room"コンセプト、Manrope + Shippori Mincho、Ma（余白）を活かした和モダン設計', color: '#64b440' },
     E: { name: 'Framer AI', brand: '菓匠 翠月 — Framer版', desc: '準備中', color: '#888' },
   };
@@ -605,7 +606,7 @@
       const section = document.getElementById('voteResultSection');
       if (!section || !data) return;
       const { counts, total } = data;
-      const activeDesigns = ['A', 'D'];
+      const activeDesigns = ['A', 'C', 'D'];
       const max = Math.max(...activeDesigns.map(k => counts[k]));
       const bars = activeDesigns.map(k => {
         const pct = total > 0 ? Math.round(counts[k] / total * 100) : 0;
@@ -623,7 +624,7 @@
       }).join('');
       section.innerHTML = `
         <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;">
-          <div style="font-size:11px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;text-align:center;">現在の集計 — 合計 ${total} 票（A・D のみ公開中）</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;text-align:center;">現在の集計 — 合計 ${total} 票（A・C・D 公開中）</div>
           ${bars}
         </div>`;
     });
