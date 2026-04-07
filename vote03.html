@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI デザイン対決 — お題01: 高級コスメブランドLP</title>
+<title>AI デザイン対決 — お題03: コワーキングスペース LP</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
   :root {
-    --bg: #0f0f13;
-    --card: #1a1a22;
-    --border: #2a2a35;
-    --accent: #c8956c;
-    --accent2: #9b6fe0;
-    --text: #e8e8f0;
-    --muted: #888;
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #21262d;
+    --accent: #4f8ef5;
+    --accent2: #e07b39;
+    --text: #e6edf3;
+    --muted: #7d8590;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,17 +26,44 @@
     min-height: 100vh;
   }
 
+  /* nav back */
+  .top-nav {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    background: rgba(13,17,23,0.9);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .top-nav a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s;
+  }
+  .top-nav a:hover { color: var(--text); }
+  .top-nav .sep { color: var(--border); font-size: 16px; }
+  .top-nav .current { font-size: 13px; color: var(--accent); font-weight: 600; }
+
   .header {
     text-align: center;
     padding: 60px 20px 40px;
-    background: linear-gradient(180deg, #1a0a30 0%, var(--bg) 100%);
+    background: linear-gradient(180deg, #0f1a2e 0%, var(--bg) 100%);
   }
 
   .header h1 {
     font-size: clamp(24px, 4vw, 42px);
     font-weight: 700;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #e8c9a0, #c8956c, #9b6fe0);
+    background: linear-gradient(135deg, #a8c8f8, #4f8ef5, #e07b39);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -47,247 +74,245 @@
     color: var(--muted);
     font-size: 16px;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     line-height: 1.6;
   }
 
   .prompt-box {
     display: inline-block;
-    background: rgba(200, 149, 108, 0.1);
-    border: 1px solid rgba(200, 149, 108, 0.3);
-    border-radius: 12px;
-    padding: 12px 24px;
-    margin-top: 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 24px;
     font-size: 14px;
-    color: var(--accent);
+    color: rgba(255,255,255,0.7);
+    max-width: 700px;
+    line-height: 1.6;
   }
 
   .rules {
-    max-width: 700px;
-    margin: 0 auto 50px;
-    padding: 0 20px;
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px 28px;
-    margin-top: 32px;
+    border-radius: 10px;
+    padding: 20px 24px;
+    font-size: 14px;
   }
 
-  .rules h3 { font-size: 14px; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
-  .rules ul { list-style: none; }
-  .rules li { font-size: 14px; color: var(--text); padding: 4px 0; padding-left: 20px; position: relative; }
-  .rules li::before { content: '›'; position: absolute; left: 0; color: var(--accent); }
+  .rules h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .rules ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .rules li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+  }
+
+  .rules li::before {
+    content: '·';
+    color: var(--accent);
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
 
   .designs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 24px;
-    max-width: 1600px;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 20px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 32px 20px;
   }
 
   .design-card {
     background: var(--card);
     border: 2px solid var(--border);
-    border-radius: 20px;
+    border-radius: 14px;
     overflow: hidden;
-    transition: border-color 0.3s, transform 0.2s;
-    display: flex;
-    flex-direction: column;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
   }
 
   .design-card.selected {
     border-color: var(--accent);
-    box-shadow: 0 0 30px rgba(200, 149, 108, 0.2);
-    transform: translateY(-2px);
+    box-shadow: 0 0 0 1px var(--accent), 0 0 30px rgba(79,142,245,0.15);
   }
 
+  .design-card.coming-soon { opacity: 0.6; cursor: default; }
+
   .card-label {
-    padding: 16px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 14px 18px;
     border-bottom: 1px solid var(--border);
   }
 
   .design-letter {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, var(--accent), #6ea8ff);
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
     font-weight: 700;
+    font-size: 15px;
     color: white;
   }
 
   .card-status {
     font-size: 12px;
-    padding: 4px 12px;
+    font-weight: 600;
+    padding: 4px 10px;
     border-radius: 20px;
-    background: rgba(255,255,255,0.05);
-    color: var(--muted);
   }
 
-  .card-status.voted {
-    background: rgba(200, 149, 108, 0.2);
-    color: var(--accent);
-  }
+  .card-status.voted { background: rgba(79,142,245,0.15); color: var(--accent); }
+  .card-status.soon { background: rgba(255,255,255,0.08); color: var(--muted); }
 
   .preview-container {
     position: relative;
-    height: 420px;
+    height: 340px;
     overflow: hidden;
-    background: #111;
-    cursor: pointer;
+    background: #1c2130;
+  }
+
+  .preview-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 30px;
+    background: linear-gradient(180deg, var(--card) 0%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .preview-overlay-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 50px;
+    background: linear-gradient(0deg, var(--card) 0%, transparent 100%);
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+    pointer-events: none;
+  }
+
+  .scroll-hint {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
   }
 
   .preview-container iframe {
-    width: 100%;
-    height: 100%;
+    width: 1280px;
+    height: 900px;
     border: none;
-    display: block;
+    transform: scale(0.28125);
+    transform-origin: top left;
+    pointer-events: none;
+  }
+
+  .iframe-click-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    cursor: pointer;
   }
 
   .preview-fallback {
-    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    gap: 16px;
   }
 
   .preview-tool-badge {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: white;
-    opacity: 0.15;
+    width: 56px; height: 56px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 700;
+    color: rgba(255,255,255,0.3);
   }
-
-  .preview-open-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 8px;
-    color: white;
-    font-size: 14px;
-    text-decoration: none;
-    transition: background 0.2s;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
-  }
-
-  .preview-open-btn:hover { background: rgba(255,255,255,0.2); }
 
   .card-footer {
-    padding: 16px 20px;
+    padding: 14px 16px;
     border-top: 1px solid var(--border);
     display: flex;
+    align-items: center;
     gap: 10px;
   }
 
   .vote-btn {
     flex: 1;
-    padding: 12px;
-    border-radius: 10px;
-    border: 2px solid var(--border);
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
     background: transparent;
-    color: var(--text);
-    font-size: 14px;
+    color: var(--muted);
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     font-family: 'Inter', sans-serif;
   }
 
-  .vote-btn:hover {
+  .vote-btn:hover:not(:disabled) {
     border-color: var(--accent);
     color: var(--accent);
-    background: rgba(200, 149, 108, 0.1);
+    background: rgba(79,142,245,0.08);
   }
 
   .vote-btn.selected {
-    border-color: var(--accent);
     background: var(--accent);
+    border-color: var(--accent);
     color: white;
   }
 
-  .preview-overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 40px;
-    background: linear-gradient(180deg, rgba(26,26,34,0.9) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .iframe-click-cover {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-  }
-
-  .preview-overlay-bottom {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 60px;
-    background: linear-gradient(0deg, rgba(26,26,34,0.95) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 8px;
-  }
-
-  .scroll-hint {
-    font-size: 11px;
-    color: rgba(255,255,255,0.3);
-    padding: 4px 10px;
-    background: rgba(0,0,0,0.3);
-    border-radius: 20px;
-  }
+  .vote-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
   .submit-section {
     text-align: center;
-    padding: 50px 20px;
-    max-width: 600px;
-    margin: 0 auto;
+    padding: 40px 20px 80px;
   }
 
   .submit-btn {
-    padding: 16px 48px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border: none;
-    border-radius: 14px;
+    padding: 16px 56px;
+    font-size: 16px;
+    font-weight: 600;
+    background: var(--accent);
     color: white;
-    font-size: 17px;
-    font-weight: 700;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
     transition: opacity 0.2s, transform 0.2s;
     letter-spacing: -0.01em;
   }
 
-  .submit-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
+  .submit-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-  .submit-btn:not(:disabled):hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-  }
+  .submit-btn:not(:disabled):hover { opacity: 0.9; transform: translateY(-2px); }
 
   .vote-count {
     margin-top: 16px;
@@ -300,26 +325,17 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: #0a0a14;
+    background: #060a10;
     z-index: 1000;
     overflow-y: auto;
     padding: 40px 20px;
   }
 
-  #revealContent {
-    max-width: 720px;
-    margin: 0 auto;
-  }
+  #revealContent { max-width: 720px; margin: 0 auto; }
 
   @keyframes fadeSlideUp {
     from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes winnerPop {
-    0% { opacity: 0; transform: scale(0.7); }
-    60% { transform: scale(1.05); }
-    100% { opacity: 1; transform: scale(1); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   canvas#confettiCanvas {
@@ -329,26 +345,25 @@
     pointer-events: none;
     z-index: 999;
   }
-
 </style>
 </head>
 <body>
 
 <canvas id="confettiCanvas"></canvas>
 
-<div style="padding:12px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border);background:rgba(15,15,19,0.8);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50;">
-  <span style="font-size:13px;color:var(--accent);font-weight:600;">お題01: 高級コスメLP</span>
-  <span style="color:var(--border);">|</span>
-  <a href="./vote02.html" style="font-size:13px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">お題02: 老舗和菓子ブランドLP</a>
-  <span style="color:var(--border);">|</span>
-  <a href="./vote03.html" style="font-size:13px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">お題03: コワーキングスペース LP →</a>
+<div class="top-nav">
+  <a href="./vote.html">← お題01: 高級コスメLP</a>
+  <span class="sep">|</span>
+  <a href="./vote02.html">お題02: 老舗和菓子LP</a>
+  <span class="sep">|</span>
+  <span class="current">お題03: コワーキングスペース LP</span>
 </div>
 
 <div class="header">
-  <h1>🏆 AI デザイン5社対決</h1>
+  <h1>🏆 AI デザイン対決</h1>
   <p>5つのAIツールが同じお題でデザインしました。どのデザインが最も良いと思いますか？</p>
   <div class="prompt-box">
-    お題：高級コスメブランドのランディングページ（ヒーローセクション・商品紹介・ブランド哲学、クリーム・チャコール・ローズゴールド）
+    お題03：コワーキングスペース「NODE」のランディングページ（渋谷・恵比寿エリア、スレート×オフホワイト×テラコッタ、24h営業、3プラン）
   </div>
 </div>
 
@@ -360,13 +375,14 @@
       <li>どれがどのAIかは投票完了後に公開します</li>
       <li>直感で「これが一番良い」と思うデザインに投票してください</li>
       <li>各デザインは新しいタブで全画面プレビューできます</li>
+      <li>「準備中」のデザインは近日公開予定です</li>
     </ul>
   </div>
 </div>
 
 <div class="designs-grid" id="designsGrid">
 
-  <!-- Design A: Claude (LUMIÈRE) -->
+  <!-- Design A: Claude -->
   <div class="design-card" id="card-A">
     <div class="card-label">
       <div class="design-letter">A</div>
@@ -383,71 +399,71 @@
     </div>
   </div>
 
-  <!-- Design B: Lovable (MAISON BEAUTÉ) -->
-  <div class="design-card" id="card-B">
+  <!-- Design B: Lovable -->
+  <div class="design-card coming-soon" id="card-B">
     <div class="card-label">
       <div class="design-letter">B</div>
-      <span class="card-status" id="status-B"></span>
-    </div>
-    <div class="preview-container" onclick="openPcPreview('B')">
-      <div class="preview-overlay"></div>
-      <iframe src="https://cream-charcoal-dream.lovable.app" loading="lazy"></iframe>
-      <div class="iframe-click-cover"></div>
-      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
-    </div>
-    <div class="card-footer">
-      <button class="vote-btn" data-design="B" onclick="vote('B')">⭐ このデザインに投票</button>
-    </div>
-  </div>
-
-  <!-- Design C: v0 (Elegant serif) -->
-  <div class="design-card" id="card-C">
-    <div class="card-label">
-      <div class="design-letter">C</div>
-      <span class="card-status" id="status-C"></span>
-    </div>
-    <div class="preview-container" onclick="openPcPreview('C')">
-      <div class="preview-overlay"></div>
-      <iframe src="./designs/v0/index.html" loading="lazy"></iframe>
-      <div class="iframe-click-cover"></div>
-      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
-    </div>
-    <div class="card-footer">
-      <button class="vote-btn" data-design="C" onclick="vote('C')">⭐ このデザインに投票</button>
-    </div>
-  </div>
-
-  <!-- Design D: Google Stitch (ELIXIR) -->
-  <div class="design-card" id="card-D">
-    <div class="card-label">
-      <div class="design-letter">D</div>
-      <span class="card-status" id="status-D"></span>
-    </div>
-    <div class="preview-container" onclick="openPcPreview('D')">
-      <div class="preview-overlay"></div>
-      <iframe src="./designs/stitch/index.html" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
-      <div class="iframe-click-cover"></div>
-      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
-    </div>
-    <div class="card-footer">
-      <button class="vote-btn" data-design="D" onclick="vote('D')">⭐ このデザインに投票</button>
-    </div>
-  </div>
-
-  <!-- Design E: Framer AI (Luminesse / Éclat) -->
-  <div class="design-card" id="card-E">
-    <div class="card-label">
-      <div class="design-letter">E</div>
-      <span class="card-status" id="status-E"></span>
+      <span class="card-status soon" id="status-B">準備中</span>
     </div>
     <div class="preview-container">
-      <div class="preview-overlay"></div>
-      <iframe src="https://tactical-staple-198764.framer.app" loading="lazy"></iframe>
-      <a href="https://tactical-staple-198764.framer.app" target="_blank" onclick="event.stopPropagation()" style="position:absolute;top:8px;right:8px;z-index:5;padding:5px 10px;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:rgba(255,255,255,0.8);font-size:11px;font-weight:600;text-decoration:none;">↗ 別タブで開く</a>
-      <div class="preview-overlay-bottom"><span class="scroll-hint">↕ スクロールで確認</span></div>
+      <div class="preview-fallback">
+        <div class="preview-tool-badge">B</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.4);">近日公開</div>
+      </div>
     </div>
     <div class="card-footer">
-      <button class="vote-btn" data-design="E" onclick="vote('E')">⭐ このデザインに投票</button>
+      <button class="vote-btn" disabled>準備中...</button>
+    </div>
+  </div>
+
+  <!-- Design C: v0 -->
+  <div class="design-card coming-soon" id="card-C">
+    <div class="card-label">
+      <div class="design-letter">C</div>
+      <span class="card-status soon" id="status-C">準備中</span>
+    </div>
+    <div class="preview-container">
+      <div class="preview-fallback">
+        <div class="preview-tool-badge">C</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.4);">近日公開</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="vote-btn" disabled>準備中...</button>
+    </div>
+  </div>
+
+  <!-- Design D: Google Stitch -->
+  <div class="design-card coming-soon" id="card-D">
+    <div class="card-label">
+      <div class="design-letter">D</div>
+      <span class="card-status soon" id="status-D">準備中</span>
+    </div>
+    <div class="preview-container">
+      <div class="preview-fallback">
+        <div class="preview-tool-badge">D</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.4);">近日公開</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="vote-btn" disabled>準備中...</button>
+    </div>
+  </div>
+
+  <!-- Design E: Figma AI -->
+  <div class="design-card coming-soon" id="card-E">
+    <div class="card-label">
+      <div class="design-letter">E</div>
+      <span class="card-status soon" id="status-E">準備中</span>
+    </div>
+    <div class="preview-container">
+      <div class="preview-fallback">
+        <div class="preview-tool-badge">E</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.4);">近日公開</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="vote-btn" disabled>準備中...</button>
     </div>
   </div>
 
@@ -460,7 +476,6 @@
   <div class="vote-count" id="voteCount">まだ投票していません</div>
 </div>
 
-
 <!-- Reveal Overlay -->
 <div id="revealOverlay">
   <div id="revealContent"></div>
@@ -468,57 +483,55 @@
 
 <script>
   // Design A: Claude
-  document.getElementById('iframe-A').src = './designs/claude.html';
+  document.getElementById('iframe-A').src = './designs/03/claude.html';
 
   // PC Preview
   const pcPreviewConfig = {
-    A: { type: 'modal', url: './designs/claude.html' },
-    B: { type: 'modal', url: 'https://cream-charcoal-dream.lovable.app' },
-    C: { type: 'modal', url: './designs/v0/index.html' },
-    D: { type: 'modal', url: './designs/stitch/index.html' },
-    E: { type: 'modal', url: 'https://tactical-staple-198764.framer.app' },
+    A: { type: 'modal', url: './designs/03/claude.html' },
+    B: { type: 'modal', url: null },
+    C: { type: 'modal', url: null },
+    D: { type: 'modal', url: null },
+    E: { type: 'modal', url: null },
   };
 
   function openPcPreview(design) {
     const config = pcPreviewConfig[design];
-    if (!config) return;
+    if (!config || !config.url) return;
     window.open(config.url, '_blank');
   }
 
   let currentVote = null;
 
   const tools = {
-    A: { name: 'Claude (Anthropic)', brand: 'LUMIÈRE', desc: 'クリーム×チャコール×ローズゴールド、CSSで作られたボトルビジュアル、Cormorant Garamond + Interフォント', color: '#c8956c' },
-    B: { name: 'Lovable', brand: 'MAISON BEAUTÉ', desc: '「La Beauté Éternelle」実際のコスメ製品写真、AI生成ヒーロー画像、大理石の背景', color: '#e879a0' },
-    C: { name: 'v0 (Vercel)', brand: 'ATELIER', desc: 'Cormorant Garamond × Montserrat、エレガントなセリフタイポグラフィ、フェードアニメーション', color: '#c8a055' },
-    D: { name: 'Google Stitch', brand: 'ELIXIR', desc: '高品質製品写真、クリーム×チャコール×ローズゴールド、ボタニカルブランドコンセプト', color: '#64b440' },
-    E: { name: 'Framer AI', brand: 'Luminesse / Éclat®', desc: '構造的ワイヤーフレーム、プレースホルダー画像、シンプルな黒×白のタイポグラフィ', color: '#888' },
+    A: { name: 'Claude (Anthropic)', brand: 'NODE — Claude版', desc: 'DM Serif Display × Inter、ペーパーホワイト × インクブラック × テラコッタ配色、SVGイラストでコワーキング空間を表現', color: '#4f8ef5' },
+    B: { name: 'Lovable', brand: 'NODE — Lovable版', desc: '近日公開', color: '#e879a0' },
+    C: { name: 'v0 (Vercel)', brand: 'NODE — v0版', desc: '近日公開', color: '#c8a055' },
+    D: { name: 'Google Stitch', brand: 'NODE — Stitch版', desc: '近日公開', color: '#64b440' },
+    E: { name: 'Figma AI (Make Designs)', brand: 'NODE — Figma AI版', desc: '近日公開', color: '#9b5de5' },
   };
 
   function vote(design) {
+    const card = document.getElementById('card-' + design);
+    if (card.classList.contains('coming-soon')) return;
     currentVote = design;
-    // Reset all cards
-    document.querySelectorAll('.design-card').forEach(c => c.classList.remove('selected'));
-    document.querySelectorAll('.vote-btn').forEach(b => { b.classList.remove('selected'); b.textContent = '⭐ このデザインに投票'; });
-    document.querySelectorAll('.card-status').forEach(s => { s.className = 'card-status'; s.textContent = ''; });
-    // Select this card
-    document.getElementById('card-' + design).classList.add('selected');
+    document.querySelectorAll('.design-card:not(.coming-soon)').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.vote-btn[data-design]').forEach(b => { b.classList.remove('selected'); b.textContent = '⭐ このデザインに投票'; });
+    document.querySelectorAll('.card-status:not(.soon)').forEach(s => { s.className = 'card-status'; s.textContent = ''; });
+    card.classList.add('selected');
     document.querySelector(`.vote-btn[data-design="${design}"]`).classList.add('selected');
     document.querySelector(`.vote-btn[data-design="${design}"]`).textContent = '✓ 投票済み';
     document.getElementById('status-' + design).className = 'card-status voted';
     document.getElementById('status-' + design).textContent = '✓ 選択中';
-    // Enable submit
     document.getElementById('submitBtn').disabled = false;
     document.getElementById('submitBtn').textContent = `Design ${design} に投票する`;
     document.getElementById('voteCount').textContent = `Design ${design} を選択しました`;
   }
 
-  const API_URL = 'https://ai-limits-lab-repo.vercel.app/api/vote';
+  const API_URL = 'https://ai-limits-lab-repo.vercel.app/api/vote03';
 
   async function submitVote() {
     if (!currentVote) return;
     document.getElementById('submitBtn').disabled = true;
-    // バックグラウンドで投票を送信
     fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -545,20 +558,17 @@
 
     const chosen = tools[currentVote];
 
-    // Phase 1: 集計中
     content.innerHTML = `<div style="text-align:center;padding:120px 0;"><div style="font-size:24px;color:rgba(255,255,255,0.4);">集計中...</div><div style="font-size:48px;margin-top:20px">⏳</div></div>`;
     await sleep(1800);
 
-    // Phase 2: 発表
     content.innerHTML = `<div style="text-align:center;padding:100px 0;animation:fadeSlideUp 0.5s ease-out;"><div style="font-size:36px;font-weight:700;color:#fff;">正解を発表します</div></div>`;
     await sleep(1500);
 
-    // Phase 3: あなたの選択
     content.innerHTML = `
       <div style="animation:fadeSlideUp 0.6s ease-out;max-width:600px;margin:0 auto;padding:60px 0;">
         <div style="text-align:center;margin-bottom:40px;">
           <div style="font-size:16px;color:rgba(255,255,255,0.4);margin-bottom:12px;">あなたが選んだのは...</div>
-          <div style="font-size:72px;font-weight:800;background:linear-gradient(135deg,#e8c9a0,#c8956c,#9b6fe0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Design ${currentVote}</div>
+          <div style="font-size:72px;font-weight:800;background:linear-gradient(135deg,#a8c8f8,#4f8ef5,#e07b39);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Design ${currentVote}</div>
         </div>
         <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px;text-align:center;">
           <div style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">このデザインを作ったのは...</div>
@@ -570,7 +580,6 @@
     await sleep(1000);
     launchConfetti();
 
-    // Phase 4: 全デザイン一覧
     await sleep(1500);
     let allDesigns = '';
     for (const [key, tool] of Object.entries(tools)) {
@@ -587,10 +596,9 @@
 
     content.innerHTML += `
       <div style="animation:fadeSlideUp 0.6s ease-out 0.3s both;max-width:600px;margin:0 auto;padding:0 0 40px;">
-        <div style="font-size:16px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:20px;text-transform:uppercase;letter-spacing:0.1em;font-size:12px;">全デザインの正体</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:20px;text-transform:uppercase;letter-spacing:0.1em;">全デザインの正体</div>
         ${allDesigns}
         <div id="voteResultSection" style="margin-top:32px;"></div>
-
         <div style="text-align:center;margin-top:40px;">
           <button onclick="document.getElementById('revealOverlay').style.display='none';document.body.style.overflow='';"
             style="padding:14px 40px;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:12px;font-size:15px;cursor:pointer;font-family:inherit;">
@@ -599,16 +607,15 @@
         </div>
       </div>`;
 
-    // 集計を取得して表示
     fetchVoteCounts().then(data => {
       const section = document.getElementById('voteResultSection');
       if (!section || !data) return;
       const { counts, total } = data;
-      const designs = ['A','B','C','D','E'];
-      const max = Math.max(...Object.values(counts));
-      const bars = designs.map(k => {
+      const activeDesigns = ['A'];
+      const max = Math.max(...activeDesigns.map(k => counts[k]));
+      const bars = activeDesigns.map(k => {
         const pct = total > 0 ? Math.round(counts[k] / total * 100) : 0;
-        const width = total > 0 ? Math.round(counts[k] / max * 100) : 0;
+        const width = max > 0 ? Math.round(counts[k] / max * 100) : 0;
         const isWinner = counts[k] === max && total > 0;
         const color = tools[k].color;
         return `
@@ -617,12 +624,12 @@
             <div style="flex:1;background:rgba(255,255,255,0.06);border-radius:6px;overflow:hidden;height:22px;">
               <div style="width:${width}%;height:100%;background:${color};opacity:0.7;border-radius:6px;transition:width 0.8s ease;"></div>
             </div>
-            <div style="width:60px;font-size:13px;color:rgba(255,255,255,0.6);text-align:right;">${counts[k]}票 (${pct}%)${isWinner ? ' 🏆' : ''}</div>
+            <div style="width:80px;font-size:13px;color:rgba(255,255,255,0.6);text-align:right;">${counts[k]}票 (${pct}%)${isWinner ? ' 🏆' : ''}</div>
           </div>`;
       }).join('');
       section.innerHTML = `
         <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;">
-          <div style="font-size:11px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;text-align:center;">現在の集計 — 合計 ${total} 票</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;text-align:center;">現在の集計 — 合計 ${total} 票（A のみ公開中）</div>
           ${bars}
         </div>`;
     });
@@ -641,7 +648,7 @@
   resizeCanvas();
 
   function launchConfetti() {
-    const colors = ['#c8956c','#9b6fe0','#FFD700','#FF6B9D','#4ECDC4','#45B7D1'];
+    const colors = ['#4f8ef5','#e07b39','#a8c8f8','#ffffff','#1a3a6a','#f5f0e8'];
     for (let i = 0; i < 100; i++) {
       particles.push({
         x: Math.random() * confettiCanvas.width, y: -20 - Math.random() * 100,

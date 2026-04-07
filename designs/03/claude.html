@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NODE — Coworking Space Tokyo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:    #111010;
+    --paper:  #f5f3ef;
+    --cream:  #ede9e1;
+    --rust:   #c75c2e;
+    --sage:   #5a7a5e;
+    --stone:  #8a8278;
+    --light:  #faf9f6;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--light);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: rgba(245,243,239,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--stone);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 22px;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--rust); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 64px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+    background: var(--paper);
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 32px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--rust);
+  }
+
+  .hero-h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(44px, 5vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+
+  .hero-h1 em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--stone);
+    max-width: 420px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 36px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--rust); }
+
+  .btn-ghost {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--rust); }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--stone);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-right {
+    position: relative;
+    background: var(--cream);
+    overflow: hidden;
+  }
+
+  /* SVG illustration — coworking space interior */
+  .hero-illustration {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .room-scene {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* floating badge */
+  .hero-badge {
+    position: absolute;
+    bottom: 48px;
+    left: 48px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 20px 24px;
+    border-radius: 8px;
+    max-width: 220px;
+  }
+
+  .badge-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 6px;
+  }
+
+  .badge-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .badge-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 8px;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-bar {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-inner {
+    display: inline-flex;
+    animation: marquee 22s linear infinite;
+    gap: 0;
+  }
+
+  .marquee-item {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 40px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .marquee-dot {
+    color: var(--rust);
+    font-size: 16px;
+    line-height: 0;
+    vertical-align: middle;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 600px;
+  }
+
+  .about-image {
+    background: var(--sage);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-img-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+  }
+
+  .about-image-inner {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 48px;
+  }
+
+  .about-quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    font-style: italic;
+    color: var(--light);
+    line-height: 1.4;
+    max-width: 340px;
+  }
+
+  .about-content {
+    background: var(--cream);
+    padding: 80px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 24px;
+  }
+
+  .section-h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 3vw, 48px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+
+  .section-body {
+    font-size: 16px;
+    color: var(--stone);
+    line-height: 1.75;
+    max-width: 460px;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .value-card {
+    padding: 20px;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 6px;
+  }
+
+  .value-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .value-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .value-desc {
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+
+  /* ── SPACES ── */
+  .spaces {
+    padding: 120px 80px;
+    background: var(--light);
+  }
+
+  .spaces-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+  }
+
+  .spaces-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .space-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .space-card-bg {
+    height: 420px;
+    transition: transform 0.5s ease;
+  }
+
+  .space-card:hover .space-card-bg {
+    transform: scale(1.04);
+  }
+
+  .space-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, transparent 55%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px;
+    color: white;
+  }
+
+  .space-card-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--rust);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 12px;
+    width: fit-content;
+  }
+
+  .space-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .space-card p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.5;
+  }
+
+  .space-card-from {
+    margin-top: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* Space card fills */
+  .sc-open { background: linear-gradient(145deg, #8a9e8d, #5a7a5e); }
+  .sc-private { background: linear-gradient(145deg, #6e5d4a, #433828); }
+  .sc-event { background: linear-gradient(145deg, #a06040, #c75c2e); }
+
+  .sc-open-pattern {
+    background: var(--sage);
+    position: relative;
+  }
+
+  /* ── AMENITIES ── */
+  .amenities {
+    padding: 100px 80px;
+    background: var(--paper);
+  }
+
+  .amenities-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 72px;
+  }
+
+  .amenity-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(0,0,0,0.06);
+  }
+
+  .amenity-item {
+    background: var(--paper);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    transition: background 0.2s;
+  }
+
+  .amenity-item:hover { background: var(--cream); }
+
+  .amenity-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--ink);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--paper);
+    font-size: 20px;
+  }
+
+  .amenity-name {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .amenity-desc {
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+
+  /* ── PLANS ── */
+  .plans {
+    padding: 120px 80px;
+    background: var(--light);
+  }
+
+  .plans-header {
+    text-align: center;
+    max-width: 540px;
+    margin: 0 auto 72px;
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .plan-card {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 40px 36px;
+    background: white;
+    position: relative;
+    transition: box-shadow 0.3s;
+  }
+
+  .plan-card:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+
+  .plan-card.featured {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--rust);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .plan-name {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 12px;
+  }
+
+  .plan-card.featured .plan-name { color: rgba(255,255,255,0.55); }
+
+  .plan-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 52px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .plan-period {
+    font-size: 13px;
+    color: var(--stone);
+    margin-bottom: 32px;
+  }
+
+  .plan-card.featured .plan-period { color: rgba(255,255,255,0.5); }
+
+  .plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .plan-features li {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--stone);
+  }
+
+  .plan-card.featured .plan-features li { color: rgba(255,255,255,0.75); }
+
+  .plan-features li::before {
+    content: '✓';
+    width: 18px;
+    height: 18px;
+    background: rgba(90,122,94,0.15);
+    color: var(--sage);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .plan-card.featured .plan-features li::before {
+    background: rgba(255,255,255,0.1);
+    color: white;
+  }
+
+  .plan-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s;
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .plan-btn:hover { background: var(--ink); color: white; }
+
+  .plan-card.featured .plan-btn {
+    background: var(--rust);
+    color: white;
+    border-color: var(--rust);
+  }
+
+  .plan-card.featured .plan-btn:hover { background: #a84d23; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--ink);
+    padding: 120px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .cta-left h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 3.5vw, 56px);
+    line-height: 1.1;
+    color: var(--paper);
+    margin-bottom: 24px;
+  }
+
+  .cta-left h2 em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .cta-left p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    max-width: 420px;
+  }
+
+  .cta-right {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 48px;
+  }
+
+  .cta-form-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--paper);
+    margin-bottom: 8px;
+  }
+
+  .cta-form-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 32px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 8px;
+  }
+
+  .form-group input, .form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding: 13px 16px;
+    font-size: 14px;
+    color: white;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input::placeholder { color: rgba(255,255,255,0.3); }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--sage);
+  }
+
+  .form-group select option { background: #1a1a1a; }
+
+  .form-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--rust);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.03em;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+
+  .form-submit:hover { background: #a84d23; }
+
+  .form-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    margin-top: 16px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0a0909;
+    padding: 60px 80px 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+  }
+
+  .footer-brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--paper);
+    margin-bottom: 12px;
+  }
+
+  .footer-tagline {
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .footer-address {
+    line-height: 1.7;
+  }
+
+  .footer-col h4 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 20px;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-col a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: white; }
+
+  .footer-bottom {
+    background: #0a0909;
+    padding: 20px 80px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255,255,255,0.3);
+    font-size: 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 50vh; }
+    .hero-left { padding: 60px 32px; }
+    .about, .cta-section { grid-template-columns: 1fr; }
+    .spaces, .amenities, .plans { padding: 80px 32px; }
+    .spaces-cards { grid-template-columns: 1fr; }
+    .amenity-list { grid-template-columns: 1fr 1fr; }
+    .plans-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; padding: 48px 32px 32px; }
+    .footer-bottom { padding: 16px 32px; flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">NODE</a>
+  <ul class="nav-links">
+    <li><a href="#spaces">スペース</a></li>
+    <li><a href="#amenities">設備</a></li>
+    <li><a href="#plans">料金</a></li>
+    <li><a href="#access">アクセス</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">見学を申し込む</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Tokyo Coworking</div>
+    <h1 class="hero-h1">
+      仕事が、<em>はかどる</em><br>場所がある。
+    </h1>
+    <p class="hero-sub">
+      渋谷・恵比寿エリアに佇む、静かで集中できるコワーキングスペース。
+      クリエイター、エンジニア、フリーランサーが集まる、NODE へ。
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">まずは見学 — 無料</a>
+      <a href="#spaces" class="btn-ghost">スペースを見る →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">312</div>
+        <div class="stat-label">アクティブメンバー</div>
+      </div>
+      <div>
+        <div class="stat-num">3F</div>
+        <div class="stat-label">フロア構成</div>
+      </div>
+      <div>
+        <div class="stat-num">24h</div>
+        <div class="stat-label">年中無休営業</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-illustration">
+      <!-- SVG coworking interior illustration -->
+      <svg class="room-scene" viewBox="0 0 600 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- floor -->
+        <rect width="600" height="700" fill="#ede9e1"/>
+
+        <!-- back wall -->
+        <rect x="60" y="80" width="480" height="340" fill="#d4cfc6"/>
+
+        <!-- large window -->
+        <rect x="180" y="100" width="240" height="220" fill="#b8d4cc" rx="2"/>
+        <rect x="180" y="100" width="240" height="220" stroke="#9ab5ae" stroke-width="3" fill="none" rx="2"/>
+        <!-- window cross -->
+        <line x1="300" y1="100" x2="300" y2="320" stroke="#9ab5ae" stroke-width="2"/>
+        <line x1="180" y1="210" x2="420" y2="210" stroke="#9ab5ae" stroke-width="2"/>
+        <!-- window light -->
+        <rect x="185" y="105" width="112" height="102" fill="#c8e4dc" rx="1"/>
+        <rect x="303" y="105" width="112" height="102" fill="#c8e4dc" rx="1"/>
+
+        <!-- floor line -->
+        <rect x="60" y="420" width="480" height="280" fill="#e0dbd2"/>
+        <line x1="60" y1="420" x2="540" y2="420" stroke="#c4bfb6" stroke-width="2"/>
+
+        <!-- perspective lines floor -->
+        <line x1="60" y1="700" x2="300" y2="420" stroke="#ccc8be" stroke-width="1"/>
+        <line x1="540" y1="700" x2="300" y2="420" stroke="#ccc8be" stroke-width="1"/>
+        <line x1="150" y1="700" x2="300" y2="420" stroke="#ccc8be" stroke-width="1" opacity="0.5"/>
+        <line x1="450" y1="700" x2="300" y2="420" stroke="#ccc8be" stroke-width="1" opacity="0.5"/>
+
+        <!-- left desk -->
+        <rect x="80" y="390" width="180" height="14" rx="3" fill="#8a7e6e"/>
+        <rect x="80" y="404" width="10" height="60" rx="2" fill="#7a6e5e"/>
+        <rect x="250" y="404" width="10" height="60" rx="2" fill="#7a6e5e"/>
+        <!-- laptop on left desk -->
+        <rect x="120" y="358" width="80" height="50" rx="3" fill="#333"/>
+        <rect x="123" y="361" width="74" height="40" rx="2" fill="#1a6a5e"/>
+        <rect x="130" y="365" width="60" height="30" rx="1" fill="#1a6a5e" opacity="0.6"/>
+        <!-- laptop base -->
+        <rect x="105" y="406" width="108" height="6" rx="2" fill="#444"/>
+
+        <!-- right desk -->
+        <rect x="340" y="390" width="180" height="14" rx="3" fill="#8a7e6e"/>
+        <rect x="340" y="404" width="10" height="60" rx="2" fill="#7a6e5e"/>
+        <rect x="510" y="404" width="10" height="60" rx="2" fill="#7a6e5e"/>
+        <!-- monitor on right desk -->
+        <rect x="390" y="320" width="100" height="72" rx="4" fill="#2a2a2a"/>
+        <rect x="394" y="324" width="92" height="60" rx="2" fill="#1e3a30"/>
+        <!-- code lines on monitor -->
+        <rect x="400" y="332" width="50" height="4" rx="1" fill="#4a9b6a" opacity="0.8"/>
+        <rect x="400" y="340" width="35" height="4" rx="1" fill="#8ab4a0" opacity="0.6"/>
+        <rect x="400" y="348" width="60" height="4" rx="1" fill="#4a9b6a" opacity="0.5"/>
+        <rect x="400" y="356" width="42" height="4" rx="1" fill="#c75c2e" opacity="0.6"/>
+        <rect x="400" y="364" width="30" height="4" rx="1" fill="#8ab4a0" opacity="0.5"/>
+        <!-- monitor stand -->
+        <rect x="433" y="392" width="14" height="12" rx="1" fill="#333"/>
+        <rect x="425" y="402" width="30" height="6" rx="2" fill="#2a2a2a"/>
+        <!-- keyboard -->
+        <rect x="360" y="405" width="120" height="20" rx="3" fill="#3a3a3a"/>
+
+        <!-- plant left corner -->
+        <rect x="60" y="460" width="40" height="50" rx="4" fill="#8a7a60"/>
+        <ellipse cx="80" cy="450" rx="30" ry="24" fill="#3d6642"/>
+        <ellipse cx="65" cy="440" rx="18" ry="14" fill="#4a7a50"/>
+        <ellipse cx="95" cy="445" rx="20" ry="16" fill="#3d6642"/>
+        <ellipse cx="78" cy="430" rx="14" ry="12" fill="#5a8a5e"/>
+
+        <!-- pendant lights -->
+        <line x1="200" y1="80" x2="200" y2="140" stroke="#9a8e80" stroke-width="2"/>
+        <circle cx="200" cy="148" r="12" fill="#d4c88a"/>
+        <circle cx="200" cy="148" r="8" fill="#f0e498" opacity="0.6"/>
+
+        <line x1="300" y1="80" x2="300" y2="160" stroke="#9a8e80" stroke-width="2"/>
+        <circle cx="300" cy="168" r="14" fill="#d4c88a"/>
+        <circle cx="300" cy="168" r="9" fill="#f0e498" opacity="0.6"/>
+
+        <line x1="400" y1="80" x2="400" y2="140" stroke="#9a8e80" stroke-width="2"/>
+        <circle cx="400" cy="148" r="12" fill="#d4c88a"/>
+        <circle cx="400" cy="148" r="8" fill="#f0e498" opacity="0.6"/>
+
+        <!-- person silhouette left -->
+        <circle cx="160" cy="340" r="18" fill="#6a5a4a"/>
+        <rect x="142" y="355" width="36" height="50" rx="6" fill="#5a4a3a"/>
+
+        <!-- person silhouette right -->
+        <circle cx="430" cy="330" r="18" fill="#7a6a5a"/>
+        <rect x="412" y="345" width="36" height="50" rx="6" fill="#8a7260"/>
+
+        <!-- bookshelf -->
+        <rect x="480" y="200" width="60" height="220" fill="#8a7a6a"/>
+        <rect x="484" y="204" width="52" height="8" fill="#7a6a5a"/>
+        <!-- books -->
+        <rect x="486" y="216" width="12" height="40" fill="#c75c2e"/>
+        <rect x="500" y="216" width="9" height="40" fill="#5a7a5e"/>
+        <rect x="511" y="216" width="14" height="40" fill="#d4c88a"/>
+        <rect x="527" y="216" width="8" height="40" fill="#8a6a4a"/>
+        <rect x="486" y="262" width="16" height="36" fill="#5a7a5e"/>
+        <rect x="504" y="262" width="10" height="36" fill="#c75c2e" opacity="0.7"/>
+        <rect x="516" y="262" width="12" height="36" fill="#d4c88a" opacity="0.8"/>
+        <rect x="530" y="262" width="9" height="36" fill="#7a6a8a"/>
+      </svg>
+    </div>
+
+    <div class="hero-badge">
+      <div class="badge-label">現在の空席状況</div>
+      <div class="badge-text">24席<br>利用可能</div>
+      <div class="badge-sub">本日 10:00 〜 22:00</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    <span class="marquee-item">超高速 Wi-Fi</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">個室会議室</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">24時間入退室</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">コーヒー飲み放題</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">住所利用可能</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">法人登記対応</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">郵便受取</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">超高速 Wi-Fi</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">個室会議室</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">24時間入退室</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">コーヒー飲み放題</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">住所利用可能</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">法人登記対応</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">郵便受取</span><span class="marquee-dot">·</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="600" height="600" fill="#5a7a5e"/>
+      <!-- geometric pattern -->
+      <line x1="0" y1="0" x2="600" y2="600" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="0" y1="100" x2="600" y2="700" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="0" y1="200" x2="600" y2="800" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="100" y1="0" x2="700" y2="600" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="200" y1="0" x2="800" y2="600" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <!-- cross pattern -->
+      <circle cx="300" cy="300" r="160" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none"/>
+      <circle cx="300" cy="300" r="100" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
+      <circle cx="300" cy="300" r="40" fill="rgba(199,92,46,0.4)"/>
+      <line x1="300" y1="100" x2="300" y2="500" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <line x1="100" y1="300" x2="500" y2="300" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    </svg>
+    <div class="about-image-inner">
+      <p class="about-quote">"最高の仕事は、<br>最高の環境から生まれる。"</p>
+    </div>
+  </div>
+
+  <div class="about-content">
+    <div class="section-label">NODE について</div>
+    <h2 class="section-h2">ただの作業場じゃない。<br>あなたのベースキャンプ。</h2>
+    <p class="section-body">
+      2019年の創業以来、渋谷エリアのクリエイターとビジネスパーソンに選ばれてきたコワーキングスペース。騒がしすぎず、静かすぎない——絶妙なバランスの空間で、一人でも、チームでも、最高のパフォーマンスを引き出します。
+    </p>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">☕</div>
+        <div class="value-title">本格コーヒー</div>
+        <div class="value-desc">スペシャルティコーヒー飲み放題。仕事の合間に一息。</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔒</div>
+        <div class="value-title">セキュリティ</div>
+        <div class="value-desc">24時間ICカード管理。深夜でも安心して作業できます。</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📦</div>
+        <div class="value-title">住所利用</div>
+        <div class="value-desc">法人登記・郵便受取・電話番号の提供も対応。</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <div class="value-title">コミュニティ</div>
+        <div class="value-desc">月1のメンバー交流会と、Slackでの情報シェア。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPACES -->
+<section class="spaces" id="spaces">
+  <div class="spaces-header">
+    <div>
+      <div class="section-label">スペース</div>
+      <h2 class="section-h2">3つのワークゾーン</h2>
+    </div>
+    <a href="#plans" class="btn-ghost">料金を見る →</a>
+  </div>
+
+  <div class="spaces-cards">
+    <!-- Open Space -->
+    <div class="space-card">
+      <div class="space-card-bg" style="height:420px; background: linear-gradient(160deg, #7a9e7e 0%, #3d6642 100%); position:relative; overflow:hidden;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 400 420" fill="none">
+          <rect width="400" height="420" fill="none"/>
+          <!-- desk rows -->
+          <rect x="40" y="200" width="320" height="8" rx="2" fill="rgba(255,255,255,0.15)"/>
+          <rect x="40" y="260" width="320" height="8" rx="2" fill="rgba(255,255,255,0.1)"/>
+          <rect x="40" y="320" width="320" height="8" rx="2" fill="rgba(255,255,255,0.08)"/>
+          <!-- laptops -->
+          <rect x="60" y="168" width="50" height="32" rx="2" fill="rgba(0,0,0,0.4)"/>
+          <rect x="64" y="172" width="42" height="24" rx="1" fill="rgba(100,180,160,0.5)"/>
+          <rect x="160" y="168" width="50" height="32" rx="2" fill="rgba(0,0,0,0.4)"/>
+          <rect x="164" y="172" width="42" height="24" rx="1" fill="rgba(100,180,160,0.3)"/>
+          <rect x="260" y="168" width="50" height="32" rx="2" fill="rgba(0,0,0,0.4)"/>
+          <rect x="264" y="172" width="42" height="24" rx="1" fill="rgba(100,180,160,0.4)"/>
+          <!-- window light effect -->
+          <rect x="0" y="0" width="400" height="160" fill="url(#wl)"/>
+          <defs>
+            <linearGradient id="wl" x1="0" y1="0" x2="0" y2="160">
+              <stop offset="0" stop-color="rgba(200,230,220,0.3)"/>
+              <stop offset="1" stop-color="rgba(200,230,220,0)"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="space-card-overlay">
+        <span class="space-card-tag">1F · 2F</span>
+        <h3>オープンスペース</h3>
+        <p>明るく開放的な共有作業スペース。集中できる静けさと、ほどよい活気が共存。</p>
+        <div class="space-card-from">¥ 660〜 / 時間</div>
+      </div>
+    </div>
+
+    <!-- Private Room -->
+    <div class="space-card">
+      <div class="space-card-bg" style="height:420px; background: linear-gradient(160deg, #5a4e3e 0%, #2e2218 100%); position:relative; overflow:hidden;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 400 420" fill="none">
+          <!-- private room interior -->
+          <rect x="60" y="120" width="280" height="200" fill="rgba(255,255,255,0.04)" rx="4"/>
+          <rect x="80" y="200" width="240" height="10" rx="2" fill="rgba(255,255,255,0.12)"/>
+          <!-- monitor -->
+          <rect x="150" y="130" width="100" height="70" rx="4" fill="rgba(0,0,0,0.5)"/>
+          <rect x="154" y="134" width="92" height="58" rx="2" fill="rgba(30,80,60,0.6)"/>
+          <!-- code on screen -->
+          <rect x="162" y="142" width="40" height="3" rx="1" fill="rgba(100,200,160,0.7)"/>
+          <rect x="162" y="150" width="28" height="3" rx="1" fill="rgba(200,200,200,0.4)"/>
+          <rect x="162" y="158" width="50" height="3" rx="1" fill="rgba(100,200,160,0.5)"/>
+          <rect x="162" y="166" width="35" height="3" rx="1" fill="rgba(200,100,60,0.5)"/>
+          <!-- chair silhouette -->
+          <rect x="170" y="210" width="60" height="40" rx="4" fill="rgba(255,255,255,0.06)"/>
+          <rect x="185" y="250" width="30" height="50" rx="2" fill="rgba(255,255,255,0.04)"/>
+          <!-- ambiance lines -->
+          <line x1="0" y1="80" x2="400" y2="80" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="340" x2="400" y2="340" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="space-card-overlay">
+        <span class="space-card-tag">3F · 個室</span>
+        <h3>プライベートブース</h3>
+        <p>完全個室で集中。ビデオ通話・機密情報の取り扱いも安心の防音設計。</p>
+        <div class="space-card-from">¥ 1,100〜 / 時間</div>
+      </div>
+    </div>
+
+    <!-- Event / Meeting -->
+    <div class="space-card">
+      <div class="space-card-bg" style="height:420px; background: linear-gradient(160deg, #c87050 0%, #8a3518 100%); position:relative; overflow:hidden;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 400 420" fill="none">
+          <!-- meeting room -->
+          <rect x="60" y="160" width="280" height="180" fill="rgba(255,255,255,0.05)" rx="4"/>
+          <!-- oval table -->
+          <ellipse cx="200" cy="260" rx="120" ry="50" fill="rgba(0,0,0,0.3)"/>
+          <ellipse cx="200" cy="260" rx="115" ry="45" fill="rgba(140,80,40,0.5)"/>
+          <!-- chairs around table -->
+          <circle cx="200" cy="200" r="16" fill="rgba(255,255,255,0.08)"/>
+          <circle cx="120" cy="230" r="16" fill="rgba(255,255,255,0.08)"/>
+          <circle cx="280" cy="230" r="16" fill="rgba(255,255,255,0.08)"/>
+          <circle cx="120" cy="290" r="16" fill="rgba(255,255,255,0.08)"/>
+          <circle cx="280" cy="290" r="16" fill="rgba(255,255,255,0.08)"/>
+          <circle cx="200" cy="320" r="16" fill="rgba(255,255,255,0.08)"/>
+          <!-- projector screen -->
+          <rect x="120" y="80" width="160" height="100" fill="rgba(255,255,255,0.1)" rx="2"/>
+          <rect x="124" y="84" width="152" height="92" fill="rgba(255,255,255,0.06)" rx="1"/>
+          <!-- presentation content -->
+          <rect x="140" y="96" width="80" height="6" rx="2" fill="rgba(255,255,255,0.4)"/>
+          <rect x="140" y="108" width="60" height="4" rx="1" fill="rgba(255,255,255,0.25)"/>
+          <rect x="140" y="120" width="70" height="4" rx="1" fill="rgba(255,255,255,0.2)"/>
+        </svg>
+      </div>
+      <div class="space-card-overlay">
+        <span class="space-card-tag">2F · 会議室</span>
+        <h3>ミーティングルーム</h3>
+        <p>4〜12名まで対応の会議室。プロジェクター、ホワイトボード完備。</p>
+        <div class="space-card-from">¥ 3,300〜 / 時間</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amenities" id="amenities">
+  <div class="amenities-header">
+    <div class="section-label">設備・サービス</div>
+    <h2 class="section-h2">必要なものは、全部ある。</h2>
+    <p style="color:var(--stone); font-size:16px; line-height:1.7; margin-top:16px;">
+      作業に集中できるよう、細部まで整えた環境をご用意しています。
+    </p>
+  </div>
+
+  <div class="amenity-list">
+    <div class="amenity-item">
+      <div class="amenity-icon">⚡</div>
+      <div class="amenity-name">超高速 Wi-Fi</div>
+      <div class="amenity-desc">最大1Gbps。ビデオ会議・大容量ファイルもストレスなし。</div>
+    </div>
+    <div class="amenity-item">
+      <div class="amenity-icon">🖥</div>
+      <div class="amenity-name">モニター貸出</div>
+      <div class="amenity-desc">27型4Kモニターを無料貸出。デュアルディスプレイ対応。</div>
+    </div>
+    <div class="amenity-item">
+      <div class="amenity-icon">☕</div>
+      <div class="amenity-name">ドリンクバー</div>
+      <div class="amenity-desc">スペシャルティコーヒー・紅茶・ソフトドリンク飲み放題。</div>
+    </div>
+    <div class="amenity-item">
+      <div class="amenity-icon">📮</div>
+      <div class="amenity-name">郵便・荷物受取</div>
+      <div class="amenity-desc">不在時の荷物受取・スキャンしてメール通知。</div>
+    </div>
+    <div class="amenity-item">
+      <div class="amenity-icon">🔐</div>
+      <div class="amenity-name">ロッカー</div>
+      <div class="amenity-desc">専用ロッカー付プランは荷物を毎日持ち歩く必要なし。</div>
+    </div>
+    <div class="amenity-item">
+      <div class="amenity-icon">🖨</div>
+      <div class="amenity-name">プリンター</div>
+      <div class="amenity-desc">モノクロ・カラー印刷対応。スキャン・コピーも。</div>
+    </div>
+    <div class="amenity-item">
+      <div class="amenity-icon">🏠</div>
+      <div class="amenity-name">住所利用</div>
+      <div class="amenity-desc">法人登記・名刺・WebサイトへのNODE住所掲載が可能。</div>
+    </div>
+    <div class="amenity-item">
+      <div class="amenity-icon">🚿</div>
+      <div class="amenity-name">シャワー室</div>
+      <div class="amenity-desc">朝ランや自転車通勤のメンバーに好評。タオル貸出あり。</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="plans" id="plans">
+  <div class="plans-header">
+    <div class="section-label">料金プラン</div>
+    <h2 class="section-h2">あなたの働き方に合わせて</h2>
+    <p style="color:var(--stone); font-size:16px; line-height:1.7; margin-top:16px;">
+      全プラン、初月は半額でお試し可能。いつでもプラン変更できます。
+    </p>
+  </div>
+
+  <div class="plans-grid">
+    <!-- Light -->
+    <div class="plan-card">
+      <div class="plan-name">ライト</div>
+      <div class="plan-price">¥9,800</div>
+      <div class="plan-period">/ 月（10時間分）</div>
+      <ul class="plan-features">
+        <li>オープンスペース 月10時間</li>
+        <li>高速 Wi-Fi</li>
+        <li>ドリンクバー利用</li>
+        <li>プリンター（10枚/月）</li>
+        <li>コミュニティ Slack 参加</li>
+      </ul>
+      <a href="#contact" class="plan-btn">このプランで始める</a>
+    </div>
+
+    <!-- Standard (Featured) -->
+    <div class="plan-card featured">
+      <div class="plan-badge">最も人気</div>
+      <div class="plan-name">スタンダード</div>
+      <div class="plan-price">¥24,800</div>
+      <div class="plan-period">/ 月（使い放題）</div>
+      <ul class="plan-features">
+        <li>オープンスペース 使い放題</li>
+        <li>会議室 月4時間無料</li>
+        <li>専用ロッカー</li>
+        <li>住所利用</li>
+        <li>ドリンクバー + プリンター無制限</li>
+        <li>24時間入退室可</li>
+      </ul>
+      <a href="#contact" class="plan-btn">このプランで始める</a>
+    </div>
+
+    <!-- Pro -->
+    <div class="plan-card">
+      <div class="plan-name">プロ</div>
+      <div class="plan-price">¥49,800</div>
+      <div class="plan-period">/ 月（個室 + 全込）</div>
+      <ul class="plan-features">
+        <li>プライベートブース 使い放題</li>
+        <li>会議室 月10時間無料</li>
+        <li>法人登記対応</li>
+        <li>郵便・電話番号</li>
+        <li>専任サポート担当者</li>
+        <li>ゲスト1名 無料同伴</li>
+      </ul>
+      <a href="#contact" class="plan-btn">このプランで始める</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-left">
+    <h2>まずは、<em>見てみる</em>だけでいい。</h2>
+    <p>
+      お試し見学は完全無料。所要時間は約30分。実際の空間を体感してから、ご検討ください。見学当日の入会で、初月料金が半額になります。
+    </p>
+  </div>
+
+  <div class="cta-right">
+    <div class="cta-form-title">見学を予約する</div>
+    <div class="cta-form-sub">平日 9:00〜20:00 受付。翌営業日までに確認メールをお送りします。</div>
+
+    <div class="form-group">
+      <label>お名前</label>
+      <input type="text" placeholder="山田 太郎">
+    </div>
+    <div class="form-group">
+      <label>メールアドレス</label>
+      <input type="email" placeholder="taro@example.com">
+    </div>
+    <div class="form-group">
+      <label>ご希望の日時</label>
+      <input type="text" placeholder="例：来週火曜日の午後">
+    </div>
+    <div class="form-group">
+      <label>興味のあるプラン</label>
+      <select>
+        <option value="">選択してください</option>
+        <option>ライト（月10時間）</option>
+        <option>スタンダード（使い放題）</option>
+        <option>プロ（個室 + 全込）</option>
+        <option>まだ決めていない</option>
+      </select>
+    </div>
+    <button class="form-submit">見学を予約する →</button>
+    <div class="form-note">見学は無料です。しつこい営業は一切行いません。</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="access">
+  <div>
+    <div class="footer-brand">NODE</div>
+    <div class="footer-tagline">
+      東京・渋谷エリアのコワーキングスペース。<br>
+      仕事が、はかどる場所。
+    </div>
+    <div class="footer-address">
+      〒150-0002<br>
+      東京都渋谷区渋谷2-X-X NODE BUILDING 1F〜3F<br>
+      <br>
+      渋谷駅 徒歩5分<br>
+      恵比寿駅 徒歩8分
+    </div>
+  </div>
+  <div class="footer-col">
+    <h4>スペース</h4>
+    <ul>
+      <li><a href="#">オープンスペース</a></li>
+      <li><a href="#">プライベートブース</a></li>
+      <li><a href="#">ミーティングルーム</a></li>
+      <li><a href="#">イベントスペース</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>サービス</h4>
+    <ul>
+      <li><a href="#">住所利用</a></li>
+      <li><a href="#">法人登記</a></li>
+      <li><a href="#">郵便受取</a></li>
+      <li><a href="#">法人向けプラン</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>NODE</h4>
+    <ul>
+      <li><a href="#">コンセプト</a></li>
+      <li><a href="#">メンバー紹介</a></li>
+      <li><a href="#">よくある質問</a></li>
+      <li><a href="#">お問い合わせ</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2024 NODE Co., Ltd. All rights reserved.</span>
+  <span>プライバシーポリシー · 特定商取引法</span>
+</div>
+
+</body>
+</html>
